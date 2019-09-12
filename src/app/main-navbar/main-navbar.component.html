@@ -1,0 +1,56 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="perfil" >
+      <img src="../../assets/images.jpg" class="foto-perfil">
+                    
+    <div class="nameUser" *ngIf="editPerfil">      
+        <span>Orianna Capote</span>
+        <i class="material-icons" [ngStyle]="{'color':'white'}" (click)="editPerfil = !editPerfil">
+          edit
+        </i>      
+    </div>  
+
+    <div class="nameUser" *ngIf="! editPerfil">      
+        <div class="user-name" >
+          <mat-form-field>
+            <input matInput placeholder="Nombre de usuario" >
+          </mat-form-field>
+          <i class="material-icons" [ngStyle]="{'color':'white'}" (click)="editPerfil = !editPerfil">
+            check_circle
+            </i>
+        </div>      
+    </div>
+      
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/resumen" routerLinkActive="active"> Resumen</a>
+      <a mat-list-item routerLink="/transferencias/" routerLinkActive="active"> <i class="material-icons">send </i> Transferencias</a>
+      <a mat-list-item routerLink="/tarjetaCredito" routerLinkActive="active"> <i class="material-icons">credit_card </i> Tarjetas de crédito</a>
+      <a mat-list-item routerLink="/operaciones" routerLinkActive="active"> Historico de Operaciones</a>
+      <a mat-list-item routerLink="/facturas" routerLinkActive="active"> Facturas</a>
+      <a mat-list-item routerLink="/" routerLinkActive="active"> <i class="material-icons">exit_to_app </i>   Salir</a>
+    </mat-nav-list>    
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="nameApp">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div>
+        <img src="../../assets/logo_v2_sf.png" height="55px">        
+      </div>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <div class="contenido">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+*{
+    font-family: sans-serif;     
+}
+
+:not(h2){
+    font-size: 14px;       
+}
+
+body{
+    margin: 0px;    
+}
