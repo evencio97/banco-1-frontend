@@ -1,1 +1,82 @@
-<p>operaciones works!</p>
+<h2> Histórico de cuentas </h2>
+
+<div class="row">
+    <div>
+        <mat-form-field>
+            <mat-label>Cuenta bancaria</mat-label>
+            <select matNativeControl >
+            <option value=""> </option>          
+            </select>        
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="today">Hoy</mat-radio-button>
+            <mat-radio-button value="lastWeek">Esta Semana</mat-radio-button>
+            <mat-radio-button value="month">Ult. 30 días</mat-radio-button>
+            <mat-radio-button value="fIni_fFin">Personalizado</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="fechasfiltro">                 
+        <mat-form-field class="ff1">
+            <input matInput [matDatepicker]="picker" placeholder="mm/dd/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>            
+                
+        <mat-form-field class="ff2">
+            <input matInput [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
+            <mat-datepicker #SecondPicker></mat-datepicker>
+        </mat-form-field>            
+    </div>
+
+    <div>
+        <button mat-raised-button> Consultar </button>
+    </div>
+
+</div>
+
+<div>
+    <h2> Operaciones </h2>
+
+    <div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+                
+                <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Nro. de Operación </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Estatus </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="negocio">
+                <th mat-header-cell *matHeaderCellDef> Negocio </th>
+                <td mat-cell *matCellDef="let element"> {{element.negocio}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="monto">
+                <th mat-header-cell *matHeaderCellDef> Monto </th>
+                <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
+                </ng-container>                        
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>
+

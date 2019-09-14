@@ -1,0 +1,35 @@
+.row div{
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 15px; 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+mat-radio-button{
+    padding-left: 25px;
+}
+
+.row .fechasfiltro{
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between
+}
+
+button{    
+    background-color: #FFAB52;
+    color: white;
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+}    
+
+th{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}

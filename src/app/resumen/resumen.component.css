@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+}    
+
+th{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between    
+}
+
+.row_1_col1{
+    padding-left: 30px;
+}
+
+.row_1_col2{
+    padding-right: 70px
+}
+
+.row_1_col1 span, .row_1_col2 span{
+    padding-left: 20px;
+}

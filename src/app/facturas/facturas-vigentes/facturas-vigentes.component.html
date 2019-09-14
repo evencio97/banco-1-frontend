@@ -1,0 +1,65 @@
+<h2>Facturas Vigentes </h2>
+
+<div class="row">
+    <div>
+        <label> Fecha desde: </label>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="mm/dd/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <label> Fecha hasta: </label>
+        <mat-form-field>
+            <input matInput [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
+            <mat-datepicker #SecondPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
+
+<div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+            
+            <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Nro. de Factura </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="f_emision">
+            <th mat-header-cell *matHeaderCellDef> Fecha de emisión </th>
+            <td mat-cell *matCellDef="let element"> {{element.f_emision}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="nombre_RS">
+            <th mat-header-cell *matHeaderCellDef> Nombre o razón social </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre_RS}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="tiempoOp">
+            <th mat-header-cell *matHeaderCellDef> Tiempo oportuno de pago </th>
+            <td mat-cell *matCellDef="let element"> {{element.tiempoOp}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="monto">
+            <th mat-header-cell *matHeaderCellDef> Monto </th>
+            <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
+            </ng-container>                        
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+
+<div class="row_center">
+    <button mat-raised-button> Exportar a PDF </button>
+</div>
+    
+
+  

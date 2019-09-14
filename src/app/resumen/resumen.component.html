@@ -1,1 +1,50 @@
-<p>resumen works!</p>
+<h2> Últimos movimientos </h2>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    
+    <ng-container matColumnDef="operacion">
+      <th mat-header-cell *matHeaderCellDef> Operación </th>
+      <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Estatus </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="negocio">
+      <th mat-header-cell *matHeaderCellDef> Negocio </th>
+      <td mat-cell *matCellDef="let element"> {{element.negocio}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef> Monto </th>
+      <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
+    </ng-container>    
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<div>
+    <div class="row">
+        <div class= "row_1_col1">          
+            <h2> Cuenta de ahorro </h2>
+            <span>Saldo disponible : 0.00  <img src="../../assets/logo-petro.png" width="20px" height="auto"></span> <!--{{cuentaAhorro.saldo}}-->          
+        </div>
+  
+        <div class= "row_1_col2">          
+            <h2> Cuenta de corriente </h2>
+            <span>Saldo disponible: 0.00  <img src="../../assets/logo-petro.png" width="20px" height="auto"> </span> <!--{{cuentaCorriente.saldo}}-->          
+        </div>    
+      </div>  
+</div>

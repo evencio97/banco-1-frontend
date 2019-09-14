@@ -1,0 +1,66 @@
+<div class="row">    
+
+        <div class="buttons">
+            <button mat-button > Mismo banco </button>
+    
+            <button mat-button > Otros bancos </button>        
+        </div>
+    
+        <div>        
+            <mat-form-field>            
+                <mat-label>Cuenta a debitar</mat-label>
+                <select matNativeControl >
+                <option value=""> </option>          
+                </select>        
+            </mat-form-field>
+        </div>
+    
+        <div class="insideRow">
+               
+            <mat-form-field>
+                <input matInput placeholder="Cuenta del benficiario" >
+            </mat-form-field>
+            
+            <mat-form-field class="tipoId" >            
+                <mat-label>Tipo </mat-label>
+                <select matNativeControl >
+                    <option value=""> </option> 
+                    <option value="V"> V </option> 
+                    <option value="E"> E </option>                   
+                    <option value="J"> J </option>          
+                    <option value="G"> G </option>          
+                </select>        
+            </mat-form-field>        
+                  
+            <mat-form-field>
+                <input matInput placeholder="Documento" >
+            </mat-form-field>
+        </div>
+    
+        <div class="insideRow">                 
+            <mat-form-field>
+                <input matInput placeholder="Monto en BsS" >
+            </mat-form-field>            
+                
+            <mat-form-field class="nameBenef">
+                <input matInput placeholder="Nombre del beneficiario" >
+            </mat-form-field>      
+            
+            <mat-checkbox >Registrar Beneficiario</mat-checkbox>
+            
+        </div>
+            
+        <div>
+            <mat-form-field>
+                <input matInput placeholder="Concepto" >
+            </mat-form-field>  
+        </div>
+    
+        <div class="buttons">
+            <button mat-raised-button class="transferir"> Transferir </button>
+    
+            <button mat-raised-button class="cancel"> Cancelar </button>        
+        </div>
+    
+    </div>
+    

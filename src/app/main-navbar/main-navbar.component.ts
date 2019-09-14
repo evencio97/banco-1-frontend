@@ -19,4 +19,6 @@ export class MainNavbarComponent {
   constructor(private breakpointObserver: BreakpointObserver) {}
 
   editPerfil: boolean = true;
+  transfer: boolean = false;
+  facturas: boolean = false;
 }

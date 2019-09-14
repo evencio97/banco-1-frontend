@@ -15,19 +15,33 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 import { ResumenComponent } from './resumen/resumen.component';
-import { TransferenciaComponent } from './transferencia/transferencia.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { OperacionesComponent } from './operaciones/operaciones.component';
-import { FacturasComponent } from './facturas/facturas.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
+import { FacturasVencidasComponent } from './facturas/facturas-vencidas/facturas-vencidas.component';
+import { FacturasPagadasComponent } from './facturas/facturas-pagadas/facturas-pagadas.component';
+import { FacturasVigentesComponent } from './facturas/facturas-vigentes/facturas-vigentes.component';
+import { CuentaRegistradaComponent } from './transferencia/cuenta-registrada/cuenta-registrada.component';
+import { CuentaNoRegistradaComponent } from './transferencia/cuenta-no-registrada/cuenta-no-registrada.component';
 
 
 @NgModule({
   declarations: [    
-    MainNavbarComponent, ResumenComponent, TransferenciaComponent, CreditCardComponent, OperacionesComponent, FacturasComponent
+    MainNavbarComponent, 
+    ResumenComponent,     
+    CreditCardComponent, 
+    OperacionesComponent,    
+    FacturasVencidasComponent, 
+    FacturasPagadasComponent, 
+    FacturasVigentesComponent, 
+    CuentaRegistradaComponent, 
+    CuentaNoRegistradaComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +60,12 @@ import { HttpModule } from '@angular/http';
     HttpClientModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [MainNavbarComponent]
 })
 export class AppModule { }

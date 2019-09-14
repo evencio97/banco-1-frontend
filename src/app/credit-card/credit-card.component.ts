@@ -34,28 +34,28 @@ export class CreditCardComponent implements OnInit {
 }
 
 export interface creditCars {
-    id: number, 
-    f_pagar: string, 
-    status: string, 
-    limite: string,
-    deuda: string,
-    disponible: string
+  id: string
+  f_pagar: string, 
+  status: string, 
+  limite: string,
+  deuda: string,
+  disponible : string    
 }
 
 const ELEMENT_DATA: creditCars[] = [
   {
-    id: 1, 
+    id: "Compra por internet con TDC", 
     f_pagar: '3/9/2019', 
     status: 'Activo', 
     limite: '14.000',
     deuda: '-12.000',
-    disponible: '10.000'
+    disponible : '14.000'  
   },{
-    id: 2, 
+    id: "Transferencia cuenta corriente", 
     f_pagar: '28/11/2019', 
     status: 'Bloqueado', 
     limite: '15.000',
     deuda: '-9.000',
-    disponible: '100.000'
+    disponible: '1.000'  
   }  
 ];

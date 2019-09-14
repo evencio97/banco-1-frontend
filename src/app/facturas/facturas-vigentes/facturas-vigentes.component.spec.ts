@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransferenciaComponent } from './transferencia.component';
+import { FacturasVigentesComponent } from './facturas-vigentes.component';
 
-describe('TransferenciaComponent', () => {
-  let component: TransferenciaComponent;
-  let fixture: ComponentFixture<TransferenciaComponent>;
+describe('FacturasVigentesComponent', () => {
+  let component: FacturasVigentesComponent;
+  let fixture: ComponentFixture<FacturasVigentesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransferenciaComponent ]
+      declarations: [ FacturasVigentesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransferenciaComponent);
+    fixture = TestBed.createComponent(FacturasVigentesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
