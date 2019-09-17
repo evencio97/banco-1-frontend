@@ -8,17 +8,17 @@ import { OperacionesComponent } from './operaciones/operaciones.component';
 import { FacturasVencidasComponent } from './facturas/facturas-vencidas/facturas-vencidas.component';
 import { FacturasPagadasComponent } from './facturas/facturas-pagadas/facturas-pagadas.component';
 import { FacturasVigentesComponent } from './facturas/facturas-vigentes/facturas-vigentes.component';
-
+import {AuthGuardService as AuthGuard} from './services/auth-guard.service';
 
 const routes: Routes = [
-  {path: 'resumen', component: ResumenComponent},  
-  {path: 'tarjetaCredito', component: CreditCardComponent},
-  {path: 'operaciones', component: OperacionesComponent},  
-  {path: 'facturas/pagadas', component: FacturasPagadasComponent},
-  {path: 'facturas/vencidas', component: FacturasVencidasComponent},
-  {path: 'facturas/vigentes', component: FacturasVigentesComponent},
-  {path: 'transferencias/registrada', component: CuentaRegistradaComponent},
-  {path: 'transferencias/noRegistrada', component: CuentaNoRegistradaComponent}
+  {path: 'resumen', component: ResumenComponent, canActivate: [AuthGuard]},  
+  {path: 'tarjetaCredito', component: CreditCardComponent, canActivate: [AuthGuard]},
+  {path: 'operaciones', component: OperacionesComponent, canActivate: [AuthGuard]},  
+  {path: 'facturas/pagadas', component: FacturasPagadasComponent, canActivate: [AuthGuard]},
+  {path: 'facturas/vencidas', component: FacturasVencidasComponent, canActivate: [AuthGuard]},
+  {path: 'facturas/vigentes', component: FacturasVigentesComponent, canActivate: [AuthGuard]},
+  {path: 'transferencias/registrada', component: CuentaRegistradaComponent, canActivate: [AuthGuard]},
+  {path: 'transferencias/noRegistrada', component: CuentaNoRegistradaComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
