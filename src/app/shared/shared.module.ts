@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -19,9 +20,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
+import { ControlMessagesComponent } from './control-messages/control-messages.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [ControlMessagesComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -40,6 +42,7 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    MatSelectModule,
     MatRadioModule
   ],
   exports:[
@@ -59,6 +62,8 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    ControlMessagesComponent,
+    MatSelectModule,
     MatRadioModule
   ]
 })

@@ -12,7 +12,7 @@ export class AuthGuardService {
     if(JSON.parse(localStorage.getItem('token'))){
       return true;
     }else{
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
       return false;
     }
   }

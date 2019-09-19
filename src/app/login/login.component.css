@@ -1,0 +1,6 @@
+.login-wrapper{
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/assets/img/template.jfif);
+}

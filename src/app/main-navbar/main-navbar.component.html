@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  <mat-sidenav *ngIf="token" #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar class="perfil">
       <img src="../../assets/img/images.jpg" class="foto-perfil">
@@ -49,17 +49,17 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar class="nameApp">
+    <mat-toolbar *ngIf="token" class="nameApp">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <div>
-        <img src="../../assets/img/logo_v2_sf.png" height="55px">
+        <img src="../../assets/img/logo_v2_sf.png" height="75px">
       </div>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <div class="contenido">
+    <div  [ngClass]="{'content':token}">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
