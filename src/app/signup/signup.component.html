@@ -157,13 +157,13 @@
                                         <app-control-messages [control]="form.controls.jusr_rif">
                                         </app-control-messages>
                                     </mat-error>
-                                    <mat-hint align="end">{{form.controls.jusr_company.value?.length || 0}}/9
+                                    <mat-hint align="end">{{form.controls.jusr_rif.value?.length || 0}}/9
                                     </mat-hint>
                                 </mat-form-field>
                             </div>
                             <div *ngIf="type == 2" class="col-6">
                                 <mat-form-field class="full-width input-padding">
-                                    <input matInput maxlength="20" type="text" placeholder="Nombre de la empresa"
+                                    <input matInput maxlength="60" type="text" placeholder="Nombre de la empresa"
                                         name="jusr_company" formControlName="jusr_company">
                                     <mat-error *ngIf="form.controls.jusr_company.invalid">
                                         <app-control-messages [control]="form.controls.jusr_company">
