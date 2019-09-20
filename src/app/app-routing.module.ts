@@ -11,6 +11,10 @@ import { FacturasVigentesComponent } from './facturas/facturas-vigentes/facturas
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import {AuthGuardService as AuthGuard} from './services/auth-guard.service';
+import {NotauthGuardService as NotauthGuard} from './services/notauth-guard.service';
+import { ConfirmAccountComponent } from './confirm-account/confirm-account.component';
+import { RequestPasswordComponent } from './request-password/request-password.component';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 
 const routes: Routes = [
   {path:'', component:ResumenComponent, canActivate: [AuthGuard] },
@@ -22,8 +26,11 @@ const routes: Routes = [
   {path: 'facturas/vigentes', component: FacturasVigentesComponent, canActivate: [AuthGuard]},
   {path: 'transferencias/registrada', component: CuentaRegistradaComponent, canActivate: [AuthGuard]},
   {path: 'transferencias/noRegistrada', component: CuentaNoRegistradaComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignupComponent}
+  {path:'confirm-account/:token', component:ConfirmAccountComponent, canActivate:[NotauthGuard]},
+  {path:'reset-password', component:RequestPasswordComponent, canActivate:[NotauthGuard]},
+  {path:'reset-request/:token', component:RecoveryPasswordComponent, canActivate:[NotauthGuard]},
+  {path: 'login', component: LoginComponent, canActivate:[NotauthGuard]},
+  {path: 'signup', component: SignupComponent, canActivate:[NotauthGuard]}
 ];
 
 @NgModule({

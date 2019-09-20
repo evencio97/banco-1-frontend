@@ -10,6 +10,7 @@ export class ValidationService {
     let config = {
       'required': 'Campo requerido',
       'invalidEmailAddress': 'Email invalido',
+      'invalidNumeric':'Este campo solo acepta valores númericos enteros positivos, que no empiecen con 0',
       'invalidPassword': 'La contraseña debe tener mínimo 8 caracteres al menos 1 alfabeto en mayúsculas, 1 alfabeto en minúsculas, 1 número y 1 carácter especial (#$%&)',
       'minlength': 'Debe tener al menos ' + validatorValue.requiredLength + ' caracteres',
       'maxlength': 'Debe tener un máximo de ' + validatorValue.requiredLength + ' caracteres'
@@ -34,6 +35,16 @@ export class ValidationService {
       return null;
     } else {
       return { 'invalidPassword': true };
+    }
+  }
+
+  static numericValidator(control) {
+    // {6,100}           - Assert password is between 6 and 100 characters
+    // (?=.*[0-9])       - Assert a string has at least one number
+    if (control.value.match(/^(0|[1-9][0-9]*)$/)) {
+      return null;
+    } else {
+      return { 'invalidNumeric': true };
     }
   }
 }

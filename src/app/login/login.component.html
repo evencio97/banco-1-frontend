@@ -7,10 +7,10 @@
                     <img src="../../assets/img/logo_v2_sf.png" height="125px">
                 </div>
                 <div class="col-6 text-center border-dark">
-                    <a class="opt" [ngClass]="{'active':type == 0}" (click)="changeLogin(0)">Cliente Natural</a>
+                    <a class="opt" [ngClass]="{'active':type == 1}" (click)="changeLogin(1)">Cliente Natural</a>
                 </div>
                 <div class="col-6 text-center border-primary">
-                    <a class="opt" [ngClass]="{'active':type == 1}" (click)="changeLogin(1)">Cliente Jurídico</a>
+                    <a class="opt" [ngClass]="{'active':type == 2}" (click)="changeLogin(2)">Cliente Jurídico</a>
                 </div>
                 <div class="col-12">
                     <form [formGroup]="form" (submit)="onSubmit(form)">
@@ -54,7 +54,7 @@
                                 </p>
                             </div>
                             <div class="col-md-12 d-flex justify-content-center">
-                                <a routerLink='/recovery' class="modal-footer-link">Olvidaste tu contraseña?</a>
+                                <a routerLink='/reset-password' class="modal-footer-link">Olvidaste tu contraseña?</a>
                             </div>
                         </div>
                     </form>

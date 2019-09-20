@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
+import { ConfirmAccountComponent } from './confirm-account/confirm-account.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
     LoginComponent,
     SignupComponent,
     RequestPasswordComponent,
-    RecoveryPasswordComponent
+    RecoveryPasswordComponent,
+    ConfirmAccountComponent
   ],
   imports: [
     BrowserModule,

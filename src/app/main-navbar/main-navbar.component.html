@@ -44,7 +44,7 @@
         Facturas Vigentes </a>
       <a class="sublist" *ngIf="facturas" mat-list-item routerLink="/facturas/vencidas" routerLinkActive="active">
         Facturas Vencidas </a>
-      <a mat-list-item routerLink="/" routerLinkActive="active"> <img src="../../assets/img/logout.svg"
+      <a (click)="logout()" mat-list-item routerLink="/" routerLinkActive="active"> <img src="../../assets/img/logout.svg"
           alt="triangle with all three sides equal" height="30px" width="30px" />&nbsp;&nbsp;Salir</a>
     </mat-nav-list>
   </mat-sidenav>

@@ -4,3 +4,8 @@
     background-size: cover;
     background-image: url(/assets/img/template.jfif);
 }
+
+a{
+    color:#FFAB52;
+    cursor:pointer;
+}

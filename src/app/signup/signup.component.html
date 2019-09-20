@@ -3,31 +3,29 @@
         <div class="col-3 login-wrapper"></div>
         <div class="col-9 box-shadow">
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center logo-signup">
                     <img src="../../assets/img/logo_v2_sf.png" height="125px">
                 </div>
                 <div class="col-6 text-center border-dark">
-                    <a class="opt" [ngClass]="{'active':type == 0}" (click)="changeLogin(0)">Cliente Natural</a>
+                    <a class="opt" [ngClass]="{'active':type == 1}" (click)="changeLogin(1)">Cliente Natural</a>
                 </div>
                 <div class="col-6 text-center border-primary">
-                    <a class="opt" [ngClass]="{'active':type == 1}" (click)="changeLogin(1)">Cliente Jurídico</a>
-                </div>
-                <div *ngIf="type == 1" class="col-12">
-                    <p>Datos personales del usuario administrador</p>
-                    <hr>
+                    <a class="opt" [ngClass]="{'active':type == 2}" (click)="changeLogin(2)">Cliente Jurídico</a>
                 </div>
                 <div class="col-12">
                     <form [formGroup]="form" (submit)="onSubmit(form)">
                         <div class="row ">
+                            <div *ngIf="type == 2" class="col-12 text-center">
+                                <hr>
+                                <p>Datos personales del usuario administrador</p>
+                                <hr>
+                            </div>
                             <div class="col-1">
                                 <mat-form-field class="full-width input-padding">
                                     <mat-label>V/E</mat-label>
                                     <mat-select name="opt_ci" formControlName="opt_ci">
-                                        <mat-option [value]="V">
-                                            V
-                                        </mat-option>
-                                        <mat-option [value]="E">
-                                            E
+                                        <mat-option *ngFor="let ci of ci_op" [value]="ci.value">
+                                            {{ci.viewValue}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -35,11 +33,13 @@
                             <div class="col-5">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="20" type="text" placeholder="Cédula de Identidad"
-                                        name="user_ci" formControlName="user_ci">
+                                        name="user_ci" formControlName="user_ci"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                     <mat-error *ngIf="form.controls.user_ci.invalid">
                                         <app-control-messages [control]="form.controls.user_ci">
                                         </app-control-messages>
                                     </mat-error>
+                                    <mat-hint>Un numero de cédula valido no puede empezar con cero</mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col-6">
@@ -94,6 +94,120 @@
                             </div>
                             <div class="col-6">
                                 <mat-form-field class="full-width input-padding">
+                                    <span matPrefix>+58 &nbsp;</span>
+                                    <mat-icon matSuffix><i class="far fa-edit"></i></mat-icon>
+                                    <input matInput type="tel" maxlength="10" placeholder="Celular" name="phone"
+                                        formControlName="phone"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-hint align="end">{{form.controls.phone.value?.length || 0}}/10
+                                    </mat-hint>
+                                    <mat-error *ngIf="form.controls.phone.invalid">
+                                        <app-control-messages [control]="form.controls.phone">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Ej 4141235789</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput name="email" formControlName="email"
+                                        placeholder="Correo electrónico">
+                                    <mat-error *ngIf="form.controls.email.invalid">
+                                        <app-control-messages [control]="form.controls.email">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Debe tener un formato de correo electrónico valido
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <textarea matInput maxlength="300" placeholder="Dirección" name="address"
+                                        formControlName="address"></textarea>
+                                    <mat-error *ngIf="form.controls.address.invalid">
+                                        <app-control-messages [control]="form.controls.address">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.address.value?.length || 0}}/300
+                                    </mat-hint>
+                                    <mat-hint>Máximo 300 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 text-center">
+                                <hr>
+                                <p>Datos de la empresa</p>
+                                <hr>
+                            </div>
+                            <div *ngIf="type == 2" class="col-1">
+                                <mat-form-field class="full-width input-padding">
+                                    <mat-label>G/J/C</mat-label>
+                                    <mat-select name="opt_rif" formControlName="opt_rif">
+                                        <mat-option *ngFor="let rif of rif_op" [value]="rif.value">
+                                            {{rif.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-5">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="9" type="text" placeholder="RIF" name="jusr_rif"
+                                        formControlName="jusr_rif"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-error *ngIf="form.controls.jusr_rif.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_rif">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_company.value?.length || 0}}/9
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="20" type="text" placeholder="Nombre de la empresa"
+                                        name="jusr_company" formControlName="jusr_company">
+                                    <mat-error *ngIf="form.controls.jusr_company.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_company">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_company.value?.length || 0}}/60
+                                    </mat-hint>
+                                    <mat-hint>Mínimo 3 caracteres, máximo 60 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <span matPrefix>+58 &nbsp;</span>
+                                    <mat-icon matSuffix><i class="far fa-edit"></i></mat-icon>
+                                    <input matInput type="tel" maxlength="10" placeholder="Telefono de la empresa"
+                                        name="jusr_phone" formControlName="jusr_phone"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-hint align="end">{{form.controls.jusr_phone.value?.length || 0}}/10
+                                    </mat-hint>
+                                    <mat-error *ngIf="form.controls.jusr_phone.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_phone">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Ej 4141235789</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <textarea matInput maxlength="300" placeholder="Dirección de la empresa"
+                                        name="jusr_address" formControlName="jusr_address"></textarea>
+                                    <mat-error *ngIf="form.controls.jusr_address.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_address">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_address.value?.length || 0}}/300
+                                    </mat-hint>
+                                    <mat-hint>Máximo 300 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12">
+                                <hr>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="60" type="text" placeholder="Pregunta de seguridad"
                                         name="q_recovery" formControlName="q_recovery">
                                     <mat-error *ngIf="form.controls.q_recovery.invalid">
@@ -120,50 +234,13 @@
                             </div>
                             <div class="col-6">
                                 <mat-form-field class="full-width input-padding">
-                                    <span matPrefix>+58 &nbsp;</span>
-                                    <mat-icon matSuffix><i class="far fa-edit"></i></mat-icon>
-                                    <input matInput type="tel" placeholder="Celular" name="phone"
-                                        formControlName="phone">
-                                    <mat-error *ngIf="form.controls.phone.invalid">
-                                        <app-control-messages [control]="form.controls.phone">
-                                        </app-control-messages>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <mat-form-field class="full-width input-padding">
-                                    <textarea matInput maxlength="300" placeholder="Dirección" name="address"
-                                        formControlName="address"></textarea>
-                                    <mat-error *ngIf="form.controls.address.invalid">
-                                        <app-control-messages [control]="form.controls.address">
-                                        </app-control-messages>
-                                    </mat-error>
-                                    <mat-hint align="end">{{form.controls.address.value?.length || 0}}/20
-                                    </mat-hint>
-                                    <mat-hint>Mínimo 3 caracteres, máximo 20</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <mat-form-field class="full-width input-padding">
-                                    <input matInput name="email" formControlName="email"
-                                        placeholder="Correo electrónico">
-                                    <mat-error *ngIf="form.controls.email.invalid">
-                                        <app-control-messages [control]="form.controls.email">
-                                        </app-control-messages>
-                                    </mat-error>
-                                    <mat-hint>Debe tener un formato de correo electrónico valido
-                                    </mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <mat-form-field class="full-width input-padding">
                                     <input matInput name="password" type="password" placeholder="Contraseña"
                                         formControlName="password" [type]="hidePass ? 'password' : 'text'">
                                     <mat-icon matSuffix>
-                                        <span *ngIf="hidePass" (click)="showPass()">
+                                        <span *ngIf="hidePass" (click)="showPass(0)">
                                             <i class="far fa-eye"></i>
                                         </span>
-                                        <span *ngIf="!hidePass" (click)="showPass()">
+                                        <span *ngIf="!hidePass" (click)="showPass(0)">
                                             <i class="far fa-eye-slash"></i>
                                         </span>
                                     </mat-icon>
@@ -197,18 +274,13 @@
                                     </mat-hint>
                                 </mat-form-field>
                             </div>
+                            <div class="col-12 text-center">
+                                <button mat-raised-button type="submit" class="success" value="Acceder">
+                                    Registrar
+                                </button>
+                            </div>
                         </div>
                     </form>
-                </div>
-                <div *ngIf="type == 1" class="col-12">
-                    <p>Datos de la empresa</p>
-                    <hr>
-                </div>
-
-                <div class="col-12 text-center">
-                    <button mat-raised-button type="submit" class="success" value="Acceder">
-                        Registrar
-                    </button>
                 </div>
                 <div class="col-md-12 text-center" style="margin-top:30px !important">
                     <p id="modal-footer-text">

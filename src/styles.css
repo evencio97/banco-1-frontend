@@ -5,10 +5,6 @@
     margin: 0;
 }
 
-a{
-    color:#FFAB52 !important;
-    cursor:pointer;
-}
 
 a:hover, a:active{
     text-decoration: none;
@@ -38,6 +34,10 @@ a:hover, a:active{
 
 .logo-padding{
     padding: 40px 0 40px 0;
+}
+
+.logo-signup{
+    padding: 0 0 40px 0;
 }
 
 .border-primary{

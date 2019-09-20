@@ -17,17 +17,21 @@ export class UserService {
 	) {
 		this.apiUrl = environment.apiUrl;
 	}
+	removeSession(){
+		localStorage.removeItem('token');
+        localStorage.removeItem('session');
+	}
 	saveSession(token, user){
 		localStorage.setItem('token', JSON.stringify(token));
 		localStorage.setItem('session', JSON.stringify(user));
 	}
-	login(user) {
+	login(user, type) {
 		let params = JSON.stringify(user);
-		return this._http.post(this.apiUrl + '/auth/login', params, httpOptions);
+		return this._http.post(this.apiUrl + '/auth/login?type='+type, params, httpOptions);
 	}
-	signup(user) {
+	signup(user, type) {
 		let params = JSON.stringify(user);
-		return this._http.post(this.apiUrl + '/auth/signup', params, httpOptions);
+		return this._http.post(this.apiUrl + '/auth/signup?type='+type, params, httpOptions);
 	}
 	getToken() {
 		return JSON.parse(localStorage.getItem('token'));
@@ -35,9 +39,9 @@ export class UserService {
 	getSession() {
 		return JSON.parse(localStorage.getItem('session'));
 	}
-	resetPassword(email) {
+	resetPassword(email, type) {
 		let params = JSON.stringify(email);
-		return this._http.post(this.apiUrl + '/password/create', params, httpOptions);
+		return this._http.post(this.apiUrl + '/password/create?type='+type, params, httpOptions);
 	}
 	confirmAccount(token) {
 		return this._http.get(this.apiUrl + '/auth/signup/activate/' + token, httpOptions);

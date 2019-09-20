@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   public message: string;
   public hidePass;
   public form: FormGroup;
-  public type:number = 0;
+  public type:number = 1;
 
   constructor(
     private _route: ActivatedRoute,
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     });
     if (form.valid) {
       try {
-        this._userService.login(form.value).subscribe(
+        this._userService.login(form.value, this.type).subscribe(
           response => {
             if (response['user'] && response['access_token']) {
               this._userService.saveSession(response['access_token'],response['user'])
