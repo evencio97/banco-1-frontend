@@ -12,7 +12,7 @@ import {AuthGuardService as AuthGuard} from './services/auth-guard.service';
 
 const routes: Routes = [
   {path: 'resumen', component: ResumenComponent, canActivate: [AuthGuard]},  
-  {path: 'tarjetaCredito', component: CreditCardComponent, canActivate: [AuthGuard]},
+  {path: 'tarjetaCredito', component: CreditCardComponent, /*canActivate: [AuthGuard]*/},
   {path: 'operaciones', component: OperacionesComponent, canActivate: [AuthGuard]},  
   {path: 'facturas/pagadas', component: FacturasPagadasComponent, canActivate: [AuthGuard]},
   {path: 'facturas/vencidas', component: FacturasVencidasComponent, canActivate: [AuthGuard]},

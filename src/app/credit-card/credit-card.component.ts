@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 
@@ -11,51 +9,11 @@ import { of } from 'rxjs';
 })
 export class CreditCardComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'f_pagar', 'status', 'limite', 'deuda', 'disponible'];
-  dataSource = new MatTableDataSource<creditCars>(ELEMENT_DATA);
   form: FormGroup;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private formBuilder: FormBuilder) {        
-    of(this.getdataSources()).subscribe(dataSource => {
-      this.dataSource = dataSource;
-    });
-  }
-
-  getdataSources() {
-    return this.dataSource;
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
 }
-
-export interface creditCars {
-  id: string
-  f_pagar: string, 
-  status: string, 
-  limite: string,
-  deuda: string,
-  disponible : string    
-}
-
-const ELEMENT_DATA: creditCars[] = [
-  {
-    id: "Compra por internet con TDC", 
-    f_pagar: '3/9/2019', 
-    status: 'Activo', 
-    limite: '14.000',
-    deuda: '-12.000',
-    disponible : '14.000'  
-  },{
-    id: "Transferencia cuenta corriente", 
-    f_pagar: '28/11/2019', 
-    status: 'Bloqueado', 
-    limite: '15.000',
-    deuda: '-9.000',
-    disponible: '1.000'  
-  }  
-];

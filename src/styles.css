@@ -12,3 +12,25 @@
 body{
     margin: 0px;    
 }
+
+.sidenav{
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.table-div{
+    margin: 20px 0 40px 0;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    transition-duration: 0.3s;
+}
+.table-div:hover{
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.table{
+    color: #777777;
+    font-weight: 600;
+}
+
+.mat-header-cell, .table-head tr th{
+    background-color: #3f3f3f !important;
+}
