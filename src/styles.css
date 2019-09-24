@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 *{
-    font-family: sans-serif;     
+    font-family: sans-serif;
+    margin: 0;
+}
+
+
+a:hover, a:active{
+    text-decoration: none;
 }
 
 :not(h2){
@@ -33,4 +38,49 @@ body{
 
 .mat-header-cell, .table-head tr th{
     background-color: #3f3f3f !important;
+}
+
+.box-shadow{
+    padding: 5% !important;
+    box-shadow: -7px 0px 7px rgba(0,0,0,.1)!important;
+}
+
+.success{    
+    background-color: #FFAB52 !important;
+    color: white !important;
+    font-size: 14px;
+}
+.full-width{
+    width: 100%;
+}
+
+.input-padding{
+    padding: 0 0 40px 0;
+}
+
+.logo-padding{
+    padding: 40px 0 40px 0;
+}
+
+.logo-signup{
+    padding: 0 0 40px 0;
+}
+
+.border-primary{
+    margin-bottom:40px;
+    border-bottom: 2px solid #FFAB52 !important;
+}
+
+.border-dark{
+    margin-bottom:40px;
+    border-bottom: 2px solid rgba(0,0,0,.1);
+}
+
+.opt{
+    color:#000 !important;
+}
+
+.active{
+    font-weight: bold !important;
+    font-size: 15px;
 }
