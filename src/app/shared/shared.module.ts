@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 import { MatNativeDateModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
@@ -43,7 +44,8 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     ReactiveFormsModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     BrowserAnimationsModule,
@@ -64,7 +66,8 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     MatNativeDateModule,
     ControlMessagesComponent,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

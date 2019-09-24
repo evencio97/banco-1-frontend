@@ -20,6 +20,7 @@ import { SignupComponent } from './signup/signup.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { ConfirmAccountComponent } from './confirm-account/confirm-account.component';
+import Swal from 'sweetalert2';
 
 
 @NgModule({

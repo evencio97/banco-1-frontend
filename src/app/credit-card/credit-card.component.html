@@ -1,60 +1,99 @@
 <h2> Tarjetas de crédito </h2>
 
+<mat-form-field style="margin-top: 20px; width:100%">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+</mat-form-field>
 <div class="table-div">
-  <table class="table">
-    <thead class="table-head">
-      <tr>
-        <th>Número</th>
-        <th>Fecha de expiración</th>
-        <th>Estatus</th>
-        <th>Limite</th>
-        <th>Deuda</th>
-        <th>Disponible</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div> -->
+    <table mat-table [dataSource]="data" matSort>
+        <ng-container matColumnDef="cc_number">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero</th>
+            <td mat-cell *matCellDef="let row">{{row.cc_number}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cc_exp_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de expiracion</th>
+            <td mat-cell *matCellDef="let row">{{row.cc_exp_date | date}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cc_status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</th>
+            <td mat-cell *matCellDef="let row">{{row.cc_status}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cc_limit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Limite</th>
+            <td mat-cell *matCellDef="let row">{{row.cc_limit}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cc_balance">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Deuda</th>
+            <td mat-cell *matCellDef="let row">{{row.cc_balance}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cc_free">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Disponible</th>
+            <td mat-cell *matCellDef="let row">
+                <span *ngIf="row.cc_limit-row.cc_balance>0" style="color: green">+{{row.cc_limit-row.cc_balance}}</span>
+                <span *ngIf="row.cc_limit-row.cc_balance<0" style="color: red">-{{row.cc_limit-row.cc_balance}}</span>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </div>
 
-<h2 style="margin-top: 60px"> Pagar tarjeta de crédito </h2>
+<h2 style="margin: 80px 0 40px 0"> Pagar tarjeta de crédito </h2>
+<div *ngIf="accounts.length">
+    <form #f="ngForm" (submit)="payTdc(f)">
+        <div class="row">
+            <div class="row_1_col">
+                <mat-form-field>
+                    <mat-label>Cuenta bancaria</mat-label>
+                    <select matNativeControl name="account" (change)="selectAccount(accountSelected.value)" #accountSelected required>
+                        <option *ngFor="let aco of accounts" value="{{aco.aco_number}}">{{aco.aco_number}}</option>
+                    </select>
+                </mat-form-field>
+                <span *ngIf="form.account && form.account.aco_balance>=0">Saldo disponible: {{form.account.aco_balance}}BsS </span>
 
-<div >
-  <form>
-    <div class="row">
-      <div class= "row_1_col">
-        <mat-form-field>
-          <mat-label>Cuenta bancaria</mat-label>
-          <select matNativeControl>
-            <option value="volvo"> </option>            
-          </select>        
-        </mat-form-field>
-        <span>Saldo disponible: 0.00 </span> <!--{{dataSource.disponible}}-->
+                <mat-form-field style="padding-top:30px">
+                    <input [disabled]="form.minimum" matInput placeholder="Monto a pagar" type="number" [(ngModel)]="form.amount" name="amount" step="any" 
+                            [min]=form.number.cc_minimum_payment [max]=form.number.cc_balance style="text-align: right;" required>
+                    <span matPrefix>BsS&nbsp;</span>
+                </mat-form-field>
+                <mat-checkbox style="text-align: right" name="minimum" (change)="toggleMinimum()">Pago mínimo</mat-checkbox>
+            </div>
 
-        <mat-form-field [ngStyle]="{'padding-top':'30px'}">
-          <input matInput placeholder="Monto a pagar" >
-        </mat-form-field>
-      </div>
+            <div class="row_1_col">
+                <mat-form-field>
+                    <mat-label>Tarjeta de crédito</mat-label>
+                    <select matNativeControl name="tdc" (change)="selectTdc(tdcSelected.value)" #tdcSelected required>
+                        <option *ngFor="let cc of tdcs" value="{{cc.cc_number}}">{{cc.cc_number}}</option>
+                    </select>
+                </mat-form-field>
+                <span *ngIf="form.number && form.number.cc_balance>=0">Deuda Total: {{form.number.cc_balance}}BsS </span>
 
-      <div class= "row_1_col">
-        <mat-form-field>
-          <mat-label>Tarjeta de crédito</mat-label>
-          <select matNativeControl>
-            <option value="volvo"> </option>          
-          </select>        
-        </mat-form-field>
-        <span>Deuda Total: 0.00 </span> <!--{{dataSource.disponible}}-->
-
-        <mat-checkbox [ngStyle]="{'padding-top':'45px'}">Pago mínimo</mat-checkbox>
-      </div>    
-    </div>  
-    <div class="row">
-      <button mat-raised-button> Pagar </button>
-    </div>
-  </form> 
+                <mat-form-field style="padding-top:30px;">
+                    <input matInput name="password" [type]="hidePass ? 'password' : 'text'" [(ngModel)]="form.password" placeholder="Contraseña" required>
+                    <mat-icon matSuffix>
+                        <span *ngIf="hidePass" (click)="showPass()">
+                            <i class="far fa-eye"></i>
+                        </span>
+                        <span *ngIf="!hidePass" (click)="showPass()">
+                            <i class="far fa-eye-slash"></i>
+                        </span>
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" mat-raised-button style="margin-top: 30px"> Pagar </button>
+        </div>
+    </form>
+</div>
+<div class="text-center" style="color: red" *ngIf="!accounts.length">
+    Actualmente, no posee ninguna cuenta activa.
 </div>
