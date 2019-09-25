@@ -21,16 +21,16 @@ export class CardsService {
   
   getTDCsTable(sort: string, order: string, page: number): Observable<any> {
     const requestUrl = `${this.apiUrl}?sort=${sort}&order=${order}&page=${page + 1}`;
-    return this._http.get(requestUrl);
+    return this._http.get(requestUrl, httpOptions);
   }
 
   getTDCs(accountsFlag = 0) {
-    const requestUrl = `${this.apiUrl}/tdc?accounts=${accountsFlag}&id=1`;
-    return this._http.get(requestUrl);
+    const requestUrl = `${this.apiUrl}/tdc?accounts=${accountsFlag}`;
+    return this._http.get(requestUrl, httpOptions);
   }
 
   payTDC(data) {
     const requestUrl = `${this.apiUrl}/tdc/pay`;
-    return this._http.post(requestUrl, data);
+    return this._http.post(requestUrl, data, httpOptions);
   }
 }

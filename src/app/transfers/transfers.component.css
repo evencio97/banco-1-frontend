@@ -1,0 +1,63 @@
+mat-radio-button{
+    padding-left: 25px;
+}
+
+.options{
+    display: flex;
+    flex-direction: row;    
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.nameBenef{
+    padding-left: 15px;
+    padding-right: 10px
+}
+
+.options-button{
+    border-style: solid;
+    border-width: 0 0 3px 0;
+    border-radius: 0px;
+    border-color: #3f3f3f;
+    color: #585858;
+    width: 130px;
+    transition-duration: 0.5s
+}
+
+.transferir{    
+    background-color: #FFAB52;
+    color: white;
+    font-size: 14px;
+}
+
+.cancel{
+    background-color:  #545454;
+    color: white;
+    font-size: 14px;
+    margin-left: 20px
+
+}
+
+table {
+    width: 100%;
+}    
+
+th{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.id-type{
+    width: 50px;
+    margin-right: 10px;
+}
+
+.right{
+    margin-right: 20px;
+}
+
+.full-width{
+    width: 500px;
+}

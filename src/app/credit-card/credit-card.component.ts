@@ -111,7 +111,7 @@ export class CreditCardComponent implements OnInit {
       number: this.form.number.cc_number, 
       account: this.form.account.aco_number,
       amount: this.form.minimum? this.form.number.cc_minimum_payment: this.form.amount,
-      password: this.form.password, id: 1
+      password: this.form.password
     };
     this._cardsService.payTDC(data).subscribe(
       response => {

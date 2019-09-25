@@ -48,7 +48,7 @@
 
 <h2 style="margin: 80px 0 40px 0"> Pagar tarjeta de crédito </h2>
 <div *ngIf="accounts.length">
-    <form #f="ngForm" (submit)="payTdc(f)">
+    <form ngNativeValidate #f="ngForm" (submit)="payTdc(f)">
         <div class="row">
             <div class="row_1_col">
                 <mat-form-field>
