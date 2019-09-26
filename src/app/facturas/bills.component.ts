@@ -47,6 +47,8 @@ export class BillsComponent implements OnInit {
                     this.table.page = response.bills.current_page;
                     this.table.next = (this.table.page+1)<this.table.finalPage? this.table.page+1:this.table.page;
                     this.table.previous = (this.table.page-1)>1? this.table.page-1:this.table.page;
+                } else{
+                    Swal.fire('Ups', 'Ocurrio un error, por favor intente de nuevo.', 'warning');
                 }
                 this.table.loading = false;
                 // console.log({'table': this.table, 'bills': response.bills});

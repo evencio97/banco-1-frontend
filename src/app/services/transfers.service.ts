@@ -19,13 +19,19 @@ export class TransfersService {
     }
 
     getUserAccounts(status) {
-        const requestUrl = `${this.apiUrl}/account/user?status=${status}`;
-        return this._http.get(requestUrl, httpOptions);
+        const requestUrl = this.apiUrl+'/account/user'+(status?'?status='+status:'');
+        return <any> this._http.get(requestUrl, httpOptions);
     }
 
     transfer(data) {
         let requestUrl = `${this.apiUrl}/account/transfer`;
         if (!data.sameBank) requestUrl += '/other-bank';
-        return this._http.post(requestUrl, data, httpOptions);
+        return <any> this._http.post(requestUrl, data, httpOptions);
+    }
+
+    getAccountMoves(body, page=1) {
+        console.log({'body': body});
+        let requestUrl = this.apiUrl+'/account/moves?page='+page;
+        return <any> this._http.post(requestUrl, body, httpOptions);
     }
 }
