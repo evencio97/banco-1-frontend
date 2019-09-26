@@ -82,7 +82,7 @@ export class OperacionesComponent implements OnInit {
                 this.table.next = (this.table.page + 1) < this.table.finalPage ? this.table.page + 1 : this.table.page;
                 this.table.previous = (this.table.page - 1) > 1 ? this.table.page - 1 : this.table.page;
                 this.table.loading = false;
-                console.log({'table': this.table.data, 'transfers': response.transfers.data, 'payments': response.ccpayments.data});
+                // console.log({'table': this.table.data, 'transfers': response.transfers.data, 'payments': response.ccpayments.data});
             },
             err => {
                 this.table.loading = false;

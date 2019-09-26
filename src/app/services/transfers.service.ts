@@ -30,7 +30,6 @@ export class TransfersService {
     }
 
     getAccountMoves(body, page=1) {
-        console.log({'body': body});
         let requestUrl = this.apiUrl+'/account/moves?page='+page;
         return <any> this._http.post(requestUrl, body, httpOptions);
     }
