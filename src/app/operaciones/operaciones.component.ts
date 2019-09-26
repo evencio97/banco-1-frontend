@@ -65,8 +65,8 @@ export class OperacionesComponent implements OnInit {
         let body = {
             number: this.account,
             option: this.dateOption,
-            maxdate: this.startDate,
-            mindate: this.endDate
+            mindate: this.startDate,
+            maxdate: this.endDate
         };
         this._transfersService.getAccountMoves(body, page).subscribe(
             response => {

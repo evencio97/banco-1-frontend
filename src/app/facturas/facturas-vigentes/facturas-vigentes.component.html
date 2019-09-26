@@ -42,7 +42,10 @@
                         <td>{{bill.bil_id}}</td>
                         <td>{{bill.bil_emitter}}</td>
                         <td>{{bill.bil_receiver}}</td>
-                        <td>{{bill.bil_status}}</td>
+                        <td>
+                            <span *ngIf="bill.bil_status == 0">Sin pagar</span>
+                            <span *ngIf="bill.bil_status == 1" style="color: green">Pagada</span>
+                        </td>
                         <td>{{bill.bil_amount}}</td>
                         <td>{{bill.bil_paydate? bill.bil_paydate:'No pagada'}}</td>
                         <td>{{bill.bil_expdate}}</td>
