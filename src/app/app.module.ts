@@ -10,8 +10,6 @@ import { MainNavbarComponent } from './main-navbar/main-navbar.component';
 import { FacturasVencidasComponent } from './facturas/facturas-vencidas/facturas-vencidas.component';
 import { FacturasPagadasComponent } from './facturas/facturas-pagadas/facturas-pagadas.component';
 import { FacturasVigentesComponent } from './facturas/facturas-vigentes/facturas-vigentes.component';
-import { CuentaRegistradaComponent } from './transferencia/cuenta-registrada/cuenta-registrada.component';
-import { CuentaNoRegistradaComponent } from './transferencia/cuenta-no-registrada/cuenta-no-registrada.component';
 import { ResumenComponent } from './resumen/resumen.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { OperacionesComponent } from './operaciones/operaciones.component';
@@ -21,6 +19,7 @@ import { RequestPasswordComponent } from './request-password/request-password.co
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { ConfirmAccountComponent } from './confirm-account/confirm-account.component';
 import { TransfersComponent } from './transfers/transfers.component';
+import { BillsComponent } from './facturas/bills.component';
 
 
 @NgModule({
@@ -31,15 +30,14 @@ import { TransfersComponent } from './transfers/transfers.component';
     OperacionesComponent,    
     FacturasVencidasComponent, 
     FacturasPagadasComponent, 
-    FacturasVigentesComponent, 
-    CuentaRegistradaComponent, 
-    CuentaNoRegistradaComponent,
+    FacturasVigentesComponent,
     LoginComponent,
     SignupComponent,
     RequestPasswordComponent,
     RecoveryPasswordComponent,
     ConfirmAccountComponent,
-    TransfersComponent
+    TransfersComponent,
+    BillsComponent
   ],
   imports: [
     BrowserModule,

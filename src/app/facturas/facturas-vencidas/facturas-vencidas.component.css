@@ -1,29 +1,3 @@
-.row{
-    display: flex;
-    justify-content: space-between;
-    margin-left: 50px;
-    margin-right: 80px
-}
-
-table {
-    width: 100%;
-}    
-
-th{
-    background-color: black;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.row_center{
-    display: flex;
-    justify-content: center;
-    margin-top: 30px
-}
-
-button{
-    background-color: #FFAB52;
-    color: white;
-    font-size: 14px;
+.mat-input-element:disabled{
+    color: #3f3f3f !important;
 }

@@ -4,28 +4,34 @@
     font-family: sans-serif;
     margin: 0;
 }
-
-
 a:hover, a:active{
     text-decoration: none;
 }
-
 :not(h2){
     font-size: 14px;       
 }
-
 body{
     margin: 0px;    
 }
-
 .sidenav{
     box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+/* Buttons */
+.theme-button{
+    background-color: #FFAB52 !important;
+    color: white !important;
+    font-size: 14px !important;
+    transition-duration: 0.3s !important;
+}
+.theme-button:hover{
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12) !important;
 }
 /* Tables */
 table{
     width: 100%;
+    margin: 0 !important;
 }
-.mat-cell, .mat-header-cell{
+th, td, .mat-cell, .mat-header-cell{
     color: #777777 !important;
     font-weight: 600 !important;
     font-size: 1em !important;
@@ -55,13 +61,36 @@ th, .mat-header-cell{
     color: white !important;
     font-size: 1em !important;
 }
+.table-pagination{
+    display: flex;
+    justify-content: flex-end;
+}
+.table-icon i{
+    font-size: 20px;
+    color: gray; 
+}
+.table-icon i:hover{
+    color: #3f3f3f;
+}
+.table-index{
+    color: gray !important;
+    margin-right: 20px;
+}
+.table-icon-mr{
+    margin-right: 5px;
+}
+.table-error{
+    padding: 30px 0;
+    color: red !important;
+    font-size: 20px !important;
+}
 /* End tables */
 /* Spinner */
 .loading-shade {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 56px;
+    bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.15);
     z-index: 1;

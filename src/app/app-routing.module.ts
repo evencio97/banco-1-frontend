@@ -14,16 +14,18 @@ import { ConfirmAccountComponent } from './confirm-account/confirm-account.compo
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { TransfersComponent } from './transfers/transfers.component';
+import { BillsComponent } from './facturas/bills.component';
 
 const routes: Routes = [
   {path: '', component:ResumenComponent, canActivate: [AuthGuard] },
   {path: 'resumen', component: ResumenComponent, canActivate: [AuthGuard]},  
   {path: 'tarjetaCredito', component: CreditCardComponent, canActivate: [AuthGuard]},
   {path: 'operaciones', component: OperacionesComponent, canActivate: [AuthGuard]},  
+  {path: 'facturas', component: BillsComponent, canActivate: [AuthGuard]},
   {path: 'facturas/pagadas', component: FacturasPagadasComponent, canActivate: [AuthGuard]},
   {path: 'facturas/vencidas', component: FacturasVencidasComponent, canActivate: [AuthGuard]},
   {path: 'facturas/vigentes', component: FacturasVigentesComponent, canActivate: [AuthGuard]},
-  {path: 'transferir', component: TransfersComponent/*, canActivate: [AuthGuard]*/},
+  {path: 'transferir', component: TransfersComponent, canActivate: [AuthGuard]},
   {path: 'confirm-account/:token', component:ConfirmAccountComponent, canActivate:[NotauthGuard]},
   {path: 'reset-password', component:RequestPasswordComponent, canActivate:[NotauthGuard]},
   {path: 'reset-request/:token', component:RecoveryPasswordComponent, canActivate:[NotauthGuard]},
