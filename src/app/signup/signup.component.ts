@@ -31,6 +31,11 @@ export class SignupComponent implements OnInit {
     { value: 'C', viewValue: 'C' }
   ]
 
+  private type_account: OPTION[] = [
+    { value: '1', viewValue: 'Ahorro' },
+    { value: '2', viewValue: 'Corriente' }
+  ]
+
   public message: string;
   public check = new FormControl(false);
   public hidePass = true;
@@ -164,6 +169,10 @@ export class SignupComponent implements OnInit {
         'V',
         [Validators.required]
       ],
+      type: [
+        '',
+        [Validators.required]
+      ],
       user_ci: [
         '',
         [Validators.required, ValidationService.numericValidator]
@@ -263,6 +272,10 @@ export class SignupComponent implements OnInit {
       user_ci: [
         '',
         [Validators.required, ValidationService.numericValidator]
+      ],
+      type: [
+        '',
+        [Validators.required]
       ],
       email: [
         '',
