@@ -50,7 +50,7 @@
                                     <mat-hint>Un numero de cédula valido no puede empezar con cero</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <mat-label>Tipo de cuenta</mat-label>
                                     <mat-select name="type" formControlName="type">
