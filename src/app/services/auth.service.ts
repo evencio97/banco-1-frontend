@@ -13,13 +13,13 @@ export class AuthService {
 
   isAuthenticated(token) {
     return this._http.get(this.apiUrl + '/auth/user', {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'Authorization': 'Bearer ' + token })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'Authorization': token })
     });
   }
 
   logout(token){
     return this._http.get(this.apiUrl + '/auth/logout', {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'Authorization': 'Bearer ' + token })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'Authorization': token })
     });
   }
 }

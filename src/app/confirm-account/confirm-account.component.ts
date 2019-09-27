@@ -23,7 +23,7 @@ export class ConfirmAccountComponent implements OnInit {
     });
     this._userService.confirmAccount(this.token).subscribe(
       response => {
-        if (response['user'] && response['access_token']) {
+        if (response['success']) {
           this._userService.saveSession(response['access_token'], response['user']);
           Swal.close();
           this._router.navigate(['/']);

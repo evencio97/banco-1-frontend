@@ -9,6 +9,10 @@ import Swal from 'sweetalert2';
 //import * as $ from 'jquery';
 declare var $ : any;
 
+export interface OPTION {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -18,6 +22,16 @@ declare var $ : any;
 })
 export class LoginComponent implements OnInit {
 
+  private ci_op: OPTION[] = [
+    { value: 'V', viewValue: 'V' },
+    { value: 'E', viewValue: 'E' }
+  ];
+
+  private rif_op: OPTION[] = [
+    { value: 'J', viewValue: 'J' },
+    { value: 'G', viewValue: 'G' },
+    { value: 'C', viewValue: 'C' }
+  ]
   public message: string;
   public hidePass;
   public form: FormGroup;
@@ -31,14 +45,34 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.hidePass = true;
-    this.resetForm();
+    this.resetFormNatural();
   }
   
-  resetForm() {
+  resetFormNatural() {
     this.form = this.formBuilder.group({
-      email: [
+      opt_ci: [
+        'V',
+        [Validators.required]
+      ],
+      user_ci: [
         '',
-        [Validators.required, ValidationService.emailValidator]
+        [Validators.required, ValidationService.numericValidator]
+      ],
+      password: [
+        '',
+        [Validators.required, ValidationService.passwordValidator]
+      ]
+    });
+  }
+  resetFormJuridic() {
+    this.form = this.formBuilder.group({
+      opt_rif: [
+        'J',
+        [Validators.required]
+      ],
+      jusr_rif: [
+        '',
+        [Validators.required, ValidationService.numericValidator, Validators.maxLength(9)]
       ],
       password: [
         '',
@@ -89,6 +123,7 @@ export class LoginComponent implements OnInit {
   }
 
   changeLogin(value){
+    value == 1 ? this.resetFormNatural(): this.resetFormJuridic();
     this.type=value;
   }
 

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-8 login-wrapper"></div>
-        <div class="col-4 box-shadow">
+        <div class="col-1 col-md-8 login-wrapper"></div>
+        <div class="col-11 col-md-4 box-shadow">
             <div class="row">
                 <div class="col-12 text-center logo-padding">
                     <img src="../../assets/img/logo_v2_sf.png" height="125px">
@@ -15,14 +15,49 @@
                 <div class="col-12">
                     <form [formGroup]="form" (submit)="onSubmit(form)">
                         <div class="row ">
-                            <div class="col-12">
+                            <div *ngIf="type == 1" class="col-4 col-md-2">
                                 <mat-form-field class="full-width input-padding">
-                                    <input matInput name="usr_email" formControlName="email"
-                                        placeholder="Correo electrónico">
-                                    <mat-error *ngIf="form.controls.email.invalid">
-                                        <app-control-messages [control]="form.controls.email">
+                                    <mat-label>V/E</mat-label>
+                                    <mat-select name="opt_ci" formControlName="opt_ci">
+                                        <mat-option *ngFor="let ci of ci_op" [value]="ci.value">
+                                            {{ci.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 1" class="col-8 col-md-10">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="20" type="text" placeholder="Cédula de Identidad"
+                                        name="user_ci" formControlName="user_ci"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-error *ngIf="form.controls.user_ci.invalid">
+                                        <app-control-messages [control]="form.controls.user_ci">
                                         </app-control-messages>
                                     </mat-error>
+                                    <mat-hint>Un numero de cédula valido no puede empezar con cero</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-4 col-md-2">
+                                <mat-form-field class="full-width input-padding">
+                                    <mat-label>G/J/C</mat-label>
+                                    <mat-select name="opt_rif" formControlName="opt_rif">
+                                        <mat-option *ngFor="let rif of rif_op" [value]="rif.value">
+                                            {{rif.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-8 col-md-10">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="9" type="text" placeholder="RIF" name="jusr_rif"
+                                        formControlName="jusr_rif"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-error *ngIf="form.controls.jusr_rif.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_rif">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_rif.value?.length || 0}}/9
+                                    </mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col-12">

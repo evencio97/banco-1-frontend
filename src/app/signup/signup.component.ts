@@ -32,8 +32,11 @@ export class SignupComponent implements OnInit {
   ]
 
   public message: string;
-  public hidePass;
-  public hidePassValidate;
+  public check = new FormControl(false);
+  public hidePass = true;
+  public hidePassValidate = true;
+  public hidePassJusr = true;
+  public hidePassJusrValidate = true;
   private type: number = 1;
   public form: FormGroup;
   constructor(
@@ -43,13 +46,15 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.hidePass = true;
-    this.hidePassValidate = true;
     this.resetFormNatural();
   }
 
   showPass(value) {
     value == 0 ? this.hidePass = !this.hidePass : this.hidePassValidate = !this.hidePassValidate;
+  }
+
+  showPassJusr(value){
+    value == 0 ? this.hidePassJusr = !this.hidePassJusr : this.hidePassJusrValidate = !this.hidePassJusrValidate;
   }
 
   onSubmit(form: any) {
@@ -63,7 +68,7 @@ export class SignupComponent implements OnInit {
     // console.log(form.value);
     if (form.valid) {
       try {
-        this._userService.signup(form.value, this.type).subscribe(
+        this._userService.signup(form.value, this.type, this.check.value).subscribe(
           response => {
             Swal.close();
             Swal.fire('Success', response['message'], 'success').then(() => {
@@ -91,6 +96,67 @@ export class SignupComponent implements OnInit {
     value == 1 ? this.resetFormNatural() : this.resetFormJuridic();
     this.type = value;
   }
+
+  onChange(){
+    this.check.value ? this.resetFormJuridicCheck() : this.resetFormJuridic();
+  }
+
+  resetFormJuridicCheck() {
+    this.form = this.formBuilder.group({
+      opt_ci: [
+        'V',
+        [Validators.required]
+      ],
+      user_ci: [
+        '',
+        [Validators.required, ValidationService.numericValidator]
+      ],
+      password: [
+        '',
+        [Validators.required, ValidationService.passwordValidator]
+      ],
+      opt_rif: [
+        'J',
+        [Validators.required]
+      ],
+      jusr_rif: [
+        '',
+        [Validators.required, ValidationService.numericValidator, Validators.maxLength(9)]
+      ],
+      jusr_email: [
+        '',
+        [Validators.required, ValidationService.emailValidator]
+      ],
+      jusr_company: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(60)]
+      ],
+      jusr_phone: [
+        '',
+        [Validators.required, Validators.minLength(10), Validators.maxLength(10), ValidationService.numericValidator]
+      ],
+      jusr_address: [
+        '',
+        [Validators.required, Validators.maxLength(300)]
+      ],
+      jusr_q_recovery: [
+        '',
+        [Validators.required, Validators.maxLength(60)]
+      ],
+      jusr_a_recovery: [
+        '',
+        [Validators.required, Validators.maxLength(100)]
+      ],
+      jusr_password: [
+        '',
+        [Validators.required, ValidationService.passwordValidator]
+      ],
+      jusr_password_confirmation: [
+        '',
+        [Validators.required, ValidationService.passwordValidator]
+      ]
+    });
+  }
   
   resetFormJuridic() {
     this.form = this.formBuilder.group({
@@ -103,6 +169,10 @@ export class SignupComponent implements OnInit {
         [Validators.required, ValidationService.numericValidator]
       ],
       email: [
+        '',
+        [Validators.required, ValidationService.emailValidator]
+      ],
+      jusr_email: [
         '',
         [Validators.required, ValidationService.emailValidator]
       ],
@@ -165,6 +235,22 @@ export class SignupComponent implements OnInit {
       jusr_address: [
         '',
         [Validators.required, Validators.maxLength(300)]
+      ],
+      jusr_q_recovery: [
+        '',
+        [Validators.required, Validators.maxLength(60)]
+      ],
+      jusr_a_recovery: [
+        '',
+        [Validators.required, Validators.maxLength(100)]
+      ],
+      jusr_password: [
+        '',
+        [Validators.required, ValidationService.passwordValidator]
+      ],
+      jusr_password_confirmation: [
+        '',
+        [Validators.required, ValidationService.passwordValidator]
       ]
     });
   }

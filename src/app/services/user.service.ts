@@ -29,9 +29,9 @@ export class UserService {
 		let params = JSON.stringify(user);
 		return this._http.post(this.apiUrl + '/auth/login?type='+type, params, httpOptions);
 	}
-	signup(user, type) {
+	signup(user, type, check = false) {
 		let params = JSON.stringify(user);
-		return this._http.post(this.apiUrl + '/auth/signup?type='+type, params, httpOptions);
+		return this._http.post(this.apiUrl + '/auth/signup?type='+type+'&check='+check, params, httpOptions);
 	}
 	getToken() {
 		return JSON.parse(localStorage.getItem('token'));

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 login-wrapper"></div>
-        <div class="col-9 box-shadow">
+        <div class="col-1 col-md-3 login-wrapper"></div>
+        <div class="col-11 col-md-9 box-shadow">
             <div class="row">
                 <div class="col-12 text-center logo-signup">
                     <img src="../../assets/img/logo_v2_sf.png" height="125px">
@@ -18,9 +18,17 @@
                             <div *ngIf="type == 2" class="col-12 text-center">
                                 <hr>
                                 <p>Datos personales del usuario administrador</p>
+                                <p style="font-size:12px; font-weight: bold">Este usuario debe estar registrado como
+                                    usuario natural o de lo contrario debe registrarse a través de este formulario junto
+                                    a la cuenta juridica</p>
                                 <hr>
                             </div>
-                            <div class="col-1">
+                            <div *ngIf="type == 2" class="col-12 text-right">
+                                <mat-slide-toggle class="example-margin" [formControl]="check" (change)="onChange()">
+                                    Ya tiene un usuario registrado?
+                                </mat-slide-toggle>
+                            </div>
+                            <div class="col-4 col-md-1">
                                 <mat-form-field class="full-width input-padding">
                                     <mat-label>V/E</mat-label>
                                     <mat-select name="opt_ci" formControlName="opt_ci">
@@ -30,7 +38,7 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div class="col-5">
+                            <div class="col-8 col-md-5">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="20" type="text" placeholder="Cédula de Identidad"
                                         name="user_ci" formControlName="user_ci"
@@ -42,7 +50,7 @@
                                     <mat-hint>Un numero de cédula valido no puede empezar con cero</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="20" type="text" placeholder="Primer nombre"
                                         name="first_name" formControlName="first_name">
@@ -54,7 +62,7 @@
                                     <mat-hint>Mínimo 3 caracteres, máximo 20</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="20" type="text" placeholder="Segundo nombre"
                                         name="middle_name" formControlName="middle_name">
@@ -66,7 +74,7 @@
                                     <mat-hint>Mínimo 3 caracteres, máximo 20</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="20" type="text" placeholder="Primer apellido"
                                         name="first_surname" formControlName="first_surname">
@@ -79,7 +87,7 @@
                                     <mat-hint>Mínimo 3 caracteres, máximo 20</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="20" type="text" placeholder="Segundo apellido"
                                         name="second_surname" formControlName="second_surname">
@@ -92,7 +100,7 @@
                                     <mat-hint>Mínimo 3 caracteres, máximo 20</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <span matPrefix>+58 &nbsp;</span>
                                     <mat-icon matSuffix><i class="far fa-edit"></i></mat-icon>
@@ -108,7 +116,7 @@
                                     <mat-hint>Ej 4141235789</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput name="email" formControlName="email"
                                         placeholder="Correo electrónico">
@@ -120,7 +128,7 @@
                                     </mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <textarea matInput maxlength="300" placeholder="Dirección" name="address"
                                         formControlName="address"></textarea>
@@ -133,80 +141,10 @@
                                     <mat-hint>Máximo 300 caracteres</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div *ngIf="type == 2" class="col-12 text-center">
-                                <hr>
-                                <p>Datos de la empresa</p>
+                            <div *ngIf="!check.value || (type == 1)" class="col-12">
                                 <hr>
                             </div>
-                            <div *ngIf="type == 2" class="col-1">
-                                <mat-form-field class="full-width input-padding">
-                                    <mat-label>G/J/C</mat-label>
-                                    <mat-select name="opt_rif" formControlName="opt_rif">
-                                        <mat-option *ngFor="let rif of rif_op" [value]="rif.value">
-                                            {{rif.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div *ngIf="type == 2" class="col-5">
-                                <mat-form-field class="full-width input-padding">
-                                    <input matInput maxlength="9" type="text" placeholder="RIF" name="jusr_rif"
-                                        formControlName="jusr_rif"
-                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    <mat-error *ngIf="form.controls.jusr_rif.invalid">
-                                        <app-control-messages [control]="form.controls.jusr_rif">
-                                        </app-control-messages>
-                                    </mat-error>
-                                    <mat-hint align="end">{{form.controls.jusr_rif.value?.length || 0}}/9
-                                    </mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div *ngIf="type == 2" class="col-6">
-                                <mat-form-field class="full-width input-padding">
-                                    <input matInput maxlength="60" type="text" placeholder="Nombre de la empresa"
-                                        name="jusr_company" formControlName="jusr_company">
-                                    <mat-error *ngIf="form.controls.jusr_company.invalid">
-                                        <app-control-messages [control]="form.controls.jusr_company">
-                                        </app-control-messages>
-                                    </mat-error>
-                                    <mat-hint align="end">{{form.controls.jusr_company.value?.length || 0}}/60
-                                    </mat-hint>
-                                    <mat-hint>Mínimo 3 caracteres, máximo 60 caracteres</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div *ngIf="type == 2" class="col-6">
-                                <mat-form-field class="full-width input-padding">
-                                    <span matPrefix>+58 &nbsp;</span>
-                                    <mat-icon matSuffix><i class="far fa-edit"></i></mat-icon>
-                                    <input matInput type="tel" maxlength="10" placeholder="Telefono de la empresa"
-                                        name="jusr_phone" formControlName="jusr_phone"
-                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    <mat-hint align="end">{{form.controls.jusr_phone.value?.length || 0}}/10
-                                    </mat-hint>
-                                    <mat-error *ngIf="form.controls.jusr_phone.invalid">
-                                        <app-control-messages [control]="form.controls.jusr_phone">
-                                        </app-control-messages>
-                                    </mat-error>
-                                    <mat-hint>Ej 4141235789</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div *ngIf="type == 2" class="col-6">
-                                <mat-form-field class="full-width input-padding">
-                                    <textarea matInput maxlength="300" placeholder="Dirección de la empresa"
-                                        name="jusr_address" formControlName="jusr_address"></textarea>
-                                    <mat-error *ngIf="form.controls.jusr_address.invalid">
-                                        <app-control-messages [control]="form.controls.jusr_address">
-                                        </app-control-messages>
-                                    </mat-error>
-                                    <mat-hint align="end">{{form.controls.jusr_address.value?.length || 0}}/300
-                                    </mat-hint>
-                                    <mat-hint>Máximo 300 caracteres</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <hr>
-                            </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="60" type="text" placeholder="Pregunta de seguridad"
                                         name="q_recovery" formControlName="q_recovery">
@@ -219,7 +157,7 @@
                                     <mat-hint>Máximo 60 caracteres</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput maxlength="100" type="text" placeholder="Respuesta"
                                         name="a_recovery" formControlName="a_recovery">
@@ -232,7 +170,7 @@
                                     <mat-hint>Máximo 100 caracteres</mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput name="password" type="password" placeholder="Contraseña"
                                         formControlName="password" [type]="hidePass ? 'password' : 'text'">
@@ -252,8 +190,7 @@
                                     </mat-hint>
                                 </mat-form-field>
                             </div>
-
-                            <div class="col-6">
+                            <div *ngIf="!check.value || (type == 1)" class="col-12 col-md-6">
                                 <mat-form-field class="full-width input-padding">
                                     <input matInput name="password_confirmation" type="password"
                                         placeholder="Confirmar contraseña" formControlName="password_confirmation"
@@ -274,6 +211,160 @@
                                     </mat-hint>
                                 </mat-form-field>
                             </div>
+                            <div *ngIf="type == 2" class="col-12 text-center">
+                                <hr>
+                                <p>Datos de la empresa</p>
+                                <hr>
+                            </div>
+                            <div *ngIf="type == 2" class="col-4 col-md-1">
+                                <mat-form-field class="full-width input-padding">
+                                    <mat-label>G/J/C</mat-label>
+                                    <mat-select name="opt_rif" formControlName="opt_rif">
+                                        <mat-option *ngFor="let rif of rif_op" [value]="rif.value">
+                                            {{rif.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-8 col-md-5">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="9" type="text" placeholder="RIF" name="jusr_rif"
+                                        formControlName="jusr_rif"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-error *ngIf="form.controls.jusr_rif.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_rif">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Un numero de rif valido no puede empezar con cero</mat-hint>
+                                    <mat-hint align="end">{{form.controls.jusr_rif.value?.length || 0}}/9
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="60" type="text" placeholder="Nombre de la empresa"
+                                        name="jusr_company" formControlName="jusr_company">
+                                    <mat-error *ngIf="form.controls.jusr_company.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_company">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_company.value?.length || 0}}/60
+                                    </mat-hint>
+                                    <mat-hint>Mínimo 3 caracteres, máximo 60 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <span matPrefix>+58 &nbsp;</span>
+                                    <mat-icon matSuffix><i class="far fa-edit"></i></mat-icon>
+                                    <input matInput type="tel" maxlength="10" placeholder="Telefono de la empresa"
+                                        name="jusr_phone" formControlName="jusr_phone"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <mat-hint align="end">{{form.controls.jusr_phone.value?.length || 0}}/10
+                                    </mat-hint>
+                                    <mat-error *ngIf="form.controls.jusr_phone.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_phone">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Ej 2121235789</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <textarea matInput maxlength="300" placeholder="Dirección de la empresa"
+                                        name="jusr_address" formControlName="jusr_address"></textarea>
+                                    <mat-error *ngIf="form.controls.jusr_address.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_address">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_address.value?.length || 0}}/300
+                                    </mat-hint>
+                                    <mat-hint>Máximo 300 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput name="jusr_email" formControlName="jusr_email"
+                                        placeholder="Correo electrónico">
+                                    <mat-error *ngIf="form.controls.jusr_email.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_email">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Debe tener un formato de correo electrónico valido
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12">
+                                <hr>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="60" type="text" placeholder="Pregunta de seguridad usuario Jurídico"
+                                        name="jusr_q_recovery" formControlName="jusr_q_recovery">
+                                    <mat-error *ngIf="form.controls.jusr_q_recovery.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_q_recovery">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_q_recovery.value?.length || 0}}/60
+                                    </mat-hint>
+                                    <mat-hint>Máximo 60 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput maxlength="100" type="text" placeholder="Respuesta"
+                                        name="jusr_a_recovery" formControlName="jusr_a_recovery">
+                                    <mat-error *ngIf="form.controls.jusr_a_recovery.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_a_recovery">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint align="end">{{form.controls.jusr_a_recovery.value?.length || 0}}/100
+                                    </mat-hint>
+                                    <mat-hint>Máximo 100 caracteres</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput name="jusr_password" type="password" placeholder="Contraseña de la cuenta juridica"
+                                        formControlName="jusr_password" [type]="hidePass ? 'password' : 'text'">
+                                    <mat-icon matSuffix>
+                                        <span *ngIf="hidePass" (click)="showPass(0)">
+                                            <i class="far fa-eye"></i>
+                                        </span>
+                                        <span *ngIf="!hidePass" (click)="showPass(0)">
+                                            <i class="far fa-eye-slash"></i>
+                                        </span>
+                                    </mat-icon>
+                                    <mat-error *ngIf="form.controls.jusr_password.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_password"></app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>La contraseña debe tener mínimo 8 caracteres al menos 1 alfabeto en
+                                        mayúsculas, 1 alfabeto en minúsculas, 1 número y 1 carácter especial (#$%&)
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="type == 2" class="col-12 col-md-6">
+                                <mat-form-field class="full-width input-padding">
+                                    <input matInput name="jusr_password_confirmation" type="password"
+                                        placeholder="Confirmar contraseña" formControlName="jusr_password_confirmation"
+                                        [type]="hidePassValidate ? 'password' : 'text'">
+                                    <mat-icon matSuffix>
+                                        <span *ngIf="hidePassValidate" (click)="showPassJusr(1)">
+                                            <i class="far fa-eye"></i>
+                                        </span>
+                                        <span *ngIf="!hidePassValidate" (click)="showPassJusr(1)">
+                                            <i class="far fa-eye-slash"></i>
+                                        </span>
+                                    </mat-icon>
+                                    <mat-error *ngIf="form.controls.jusr_password_confirmation.invalid">
+                                        <app-control-messages [control]="form.controls.jusr_password_confirmation">
+                                        </app-control-messages>
+                                    </mat-error>
+                                    <mat-hint>Las contraseñas deben coincidir
+                                    </mat-hint>
+                                </mat-form-field>
+                            </div>
+
                             <div class="col-12 text-center">
                                 <button mat-raised-button type="submit" class="success" value="Acceder">
                                     Registrar

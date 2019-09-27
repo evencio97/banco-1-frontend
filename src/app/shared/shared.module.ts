@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { MatNativeDateModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
@@ -43,6 +44,7 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     ReactiveFormsModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatRadioModule
   ],
   exports:[
@@ -63,6 +65,7 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     ReactiveFormsModule,
     MatNativeDateModule,
     ControlMessagesComponent,
+    MatSlideToggleModule,
     MatSelectModule,
     MatRadioModule
   ]
