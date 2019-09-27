@@ -47,8 +47,10 @@
                             <span *ngIf="bill.bil_status == 1" style="color: green">Pagada</span>
                         </td>
                         <td>{{bill.bil_amount}}</td>
-                        <td>{{bill.bil_paydate? bill.bil_paydate:'No pagada'}}</td>
-                        <td>{{bill.bil_expdate}}</td>
+                        <td>
+                            <span *ngIf="bill.bil_paydate">{{ bill.bil_paydate | date }}</span>
+                        </td>
+                        <td>{{bill.bil_expdate  | date}}</td>
                     </tr>
                 </tbody>
             </table>

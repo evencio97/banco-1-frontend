@@ -56,11 +56,12 @@
                         <th>Código</th>
                         <th>Estatus</th>
                         <th>Monto</th>
+                        <th>IP</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let move of table.data">
-                        <td>{{move.created_at}}</td>
+                        <td>{{move.created_at | date}}</td>
                         <td>
                             <span *ngIf="move.tra_account_receiver && move.tra_account_receiver == table.account">
                                 Transferencia recibida {{move.tra_account_emitter.substr(0, 3)=='001'?'mismo banco':'otro banco'}}
@@ -82,6 +83,7 @@
                             <span *ngIf="move.tra_account_receiver && move.tra_account_receiver == table.account" style="color: green">{{move.tra_amount?move.tra_amount:move.ccp_amount}}</span>
                             <span *ngIf="move.ccp_id || (move.tra_account_emitter && move.tra_account_emitter == table.account)" style="color: red">-{{move.tra_amount?move.tra_amount:move.ccp_amount}}</span>
                         </td>
+                        <td>{{ move.tra_number? move.tra_client_ip:move.ccp_client_ip }}</td>
                     </tr>
                 </tbody>
             </table>

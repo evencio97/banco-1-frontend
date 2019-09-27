@@ -1,27 +1,11 @@
-table {
-    width: 100%;
-}    
-
-th{
-    background-color: black;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
+.m-right{
+    margin-right: 20px;
 }
 
-.row{
-    display: flex;
-    justify-content: space-between    
+.filter-m-top{
+    margin-top: 20px;
 }
 
-.row_1_col1{
-    padding-left: 30px;
-}
-
-.row_1_col2{
-    padding-right: 70px
-}
-
-.row_1_col1 span, .row_1_col2 span{
-    padding-left: 20px;
+.filter-m-bottom{
+    margin-bottom: 20px;
 }
