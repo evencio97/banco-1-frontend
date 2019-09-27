@@ -1,82 +1,105 @@
-<h2> Histórico de cuentas </h2>
-
-<div class="row">
-    <div>
-        <mat-form-field>
-            <mat-label>Cuenta bancaria</mat-label>
-            <select matNativeControl >
-            <option value=""> </option>          
-            </select>        
-        </mat-form-field>
+<div class="container">
+    <h2> Histórico de cuentas </h2>
+    <!-- Filtros -->
+    <div class="row text-center">
+        <div class="col-12 filter-m-top">
+            <mat-form-field style="width: 450px;">
+                <mat-label>Cuenta bancaria</mat-label>
+                <mat-select matNativeControl [(ngModel)]="account">
+                    <mat-option *ngFor="let acco of accounts" value="{{acco.aco_number}}">{{acco.aco_number+'&nbsp;&nbsp;&nbsp;Saldo: '+acco.aco_balance+' BsS'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 filter-m-top">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="dateOption">
+                <mat-radio-button class="m-right" value="all">Todas</mat-radio-button>
+                <mat-radio-button class="m-right" value="today">Hoy</mat-radio-button>
+                <mat-radio-button class="m-right" value="week">Esta Semana</mat-radio-button>
+                <mat-radio-button class="m-right" value="month">Ult. 30 días</mat-radio-button>
+                <mat-radio-button value="custom">Personalizado</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-12 filter-m-top">
+            <span class="m-right">
+                <mat-form-field>
+                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setStartDate($event)"
+                        [matDatepicker]="picker" placeholder="Inicio" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [disabled]="dateOption != 'custom'"></mat-datepicker>
+                </mat-form-field>
+            </span>
+            <span>
+                <mat-form-field>
+                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setEndDate($event)"
+                        [matDatepicker]="SecondPicker" placeholder="Fin" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #SecondPicker [disabled]="dateOption != 'custom'"></mat-datepicker>
+                </mat-form-field>
+            </span>
+        </div>
+        <div class="col-12 filter-m-top filter-m-bottom">
+            <button mat-raised-button class="theme-button" (click)="getAccountMoves()"> Consultar </button>
+        </div>
     </div>
-
-    <div>
-        <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="today">Hoy</mat-radio-button>
-            <mat-radio-button value="lastWeek">Esta Semana</mat-radio-button>
-            <mat-radio-button value="month">Ult. 30 días</mat-radio-button>
-            <mat-radio-button value="fIni_fFin">Personalizado</mat-radio-button>
-        </mat-radio-group>
-    </div>
-
-    <div class="fechasfiltro">                 
-        <mat-form-field class="ff1">
-            <input matInput [matDatepicker]="picker" placeholder="mm/dd/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>            
-                
-        <mat-form-field class="ff2">
-            <input matInput [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
-            <mat-datepicker #SecondPicker></mat-datepicker>
-        </mat-form-field>            
-    </div>
-
-    <div>
-        <button mat-raised-button> Consultar </button>
-    </div>
-
-</div>
-
-<div>
-    <h2> Operaciones </h2>
-
-    <div>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
-                
-                <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> Nro. de Operación </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="fecha">
-                <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> Estatus </th>
-                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="negocio">
-                <th mat-header-cell *matHeaderCellDef> Negocio </th>
-                <td mat-cell *matCellDef="let element"> {{element.negocio}} </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="monto">
-                <th mat-header-cell *matHeaderCellDef> Monto </th>
-                <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
-                </ng-container>                        
-            
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <!-- Table -->
+    <div class="row text-center" style="padding-bottom: 50px">
+        <h2 style="text-align: left;width:100%"> Operaciones </h2>
+        <div class="col-12 table-div text-left" style="padding: 0" *ngIf="table.data.length || table.loading">
+            <div *ngIf="table.loading" class="loading-shade">
+                <mat-spinner></mat-spinner>
+            </div>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Operación</th>
+                        <th>Código</th>
+                        <th>Estatus</th>
+                        <th>Monto</th>
+                        <th>IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let move of table.data">
+                        <td>{{move.created_at | date}}</td>
+                        <td>
+                            <span *ngIf="move.tra_account_receiver && move.tra_account_receiver == table.account">
+                                Transferencia recibida {{move.tra_account_emitter.substr(0, 3)=='001'?'mismo banco':'otro banco'}}
+                            </span>
+                            <span *ngIf="move.tra_account_receiver && move.tra_account_receiver != table.account">
+                                Transferencia enviada {{move.tra_account_receiver.substr(0, 3)=='001'?'mismo banco':'otro banco'}}
+                            </span>
+                            <span *ngIf="move.ccp_id">Pago TDC terminada en ******{{move.ccp_creditcard.substr(-4)}}</span>
+                        </td>
+                        <td>
+                            {{move.tra_number?move.tra_number:move.ccp_id}}
+                        </td>
+                        <td>
+                            <span *ngIf="move.ccp_status == 0 || move.tra_status == 0">No activa</span>
+                            <span *ngIf="move.ccp_status == 1 || move.tra_status == 1" style="color: green">Activa</span>
+                            <span *ngIf="move.ccp_status == 2 || move.tra_status == 2" style="color: red">Fallida</span>
+                        </td>
+                        <td>
+                            <span *ngIf="move.tra_account_receiver && move.tra_account_receiver == table.account" style="color: green">{{move.tra_amount?move.tra_amount:move.ccp_amount}}</span>
+                            <span *ngIf="move.ccp_id || (move.tra_account_emitter && move.tra_account_emitter == table.account)" style="color: red">-{{move.tra_amount?move.tra_amount:move.ccp_amount}}</span>
+                        </td>
+                        <td>{{ move.tra_number? move.tra_client_ip:move.ccp_client_ip }}</td>
+                    </tr>
+                </tbody>
             </table>
-            
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            <div class="table-pagination" style="padding: 10px 20px">
+                <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves()"><i class="fas fa-angle-double-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves(table.previous)"><i class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves(table.next)"><i class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+            </div>
+        </div>
+        <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">
+            No se han encontrado resultados
+        </div>
+        <div class="col-12">
+            <button mat-raised-button class="theme-button"> Exportar a PDF </button>
         </div>
     </div>
 </div>
-

@@ -1,0 +1,40 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' })
+};
+
+@Injectable({
+    providedIn: 'root'
+})
+export class BillsService {
+
+    public apiUrl;
+    constructor(
+        private _http: HttpClient
+    ) {
+        this.apiUrl = environment.apiUrl;
+    }
+
+    getBills(params) {
+        const requestUrl = `${this.apiUrl}/bill${params}`;
+        return <any> this._http.get(requestUrl, httpOptions);
+    }
+
+    getPayBills(params) {
+        const requestUrl = `${this.apiUrl}/bill/pay${params}`;
+        return <any> this._http.get(requestUrl, httpOptions);
+    }
+
+    getOpenBills(params) {
+        const requestUrl = `${this.apiUrl}/bill/open${params}`;
+        return <any> this._http.get(requestUrl, httpOptions);
+    }
+
+    getExpBills(params) {
+        const requestUrl = `${this.apiUrl}/bill/expired${params}`;
+        return <any> this._http.get(requestUrl, httpOptions);
+    }
+}

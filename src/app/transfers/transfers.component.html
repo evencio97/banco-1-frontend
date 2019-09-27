@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row" style="margin-top: 4%">
+        <div class="col-12 text-center">
+            <div class="options">
+                <button mat-button class="options-button" [ngStyle]="sameBank? {'border-color': '#FFAB52','color': '#3f3f3f'}:''" (click)="sameBank=true"> Mismo banco </button>
+                <button mat-button class="options-button" [ngStyle]="sameBank? '':{'border-color': '#FFAB52','color': '#3f3f3f'}" (click)="sameBank=false"> Otros bancos </button>        
+            </div>
+            <form [className]="sameBank? 'animated fadeInLeft':'animated fadeInRight'" ngNativeValidate #f="ngForm" (submit)="makeTransfer(f)">
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="full-width">            
+                            <mat-label>Cuenta a debitar</mat-label>
+                            <select matNativeControl name="emitter" ngModel required>
+                                <option *ngFor="let account of accounts" value="{{account.aco_number}}">{{account.aco_number+'&nbsp;&nbsp;&nbsp;Saldo: '+account.aco_balance+' BsS'}}</option>          
+                            </select>        
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field class="full-width">
+                            <input matInput type="text" minlength="20" name="receiver" ngModel placeholder="Cuenta del benficiario" (keydown)="onlyNumericInput($event)" required/>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-12">
+                        <mat-form-field class="id-type">            
+                            <mat-label>Tipo </mat-label>
+                            <select matNativeControl name="type" ngModel required>
+                                <option value="V"> V </option> 
+                                <option value="E"> E </option>                   
+                                <option value="J"> J </option>          
+                            </select>        
+                        </mat-form-field>        
+                        <mat-form-field class="right" style="width: 210px">
+                            <input matInput type="text" placeholder="Documento" name="identifier" ngModel (keydown)="onlyNumericInput($event)" required/>
+                        </mat-form-field>
+                        <mat-form-field style="width: 210px">
+                            <input matInput placeholder="Monto" type="text" name="amount" ngModel style="text-align: right;" (keydown)="onlyNumericInput($event)" required/>
+                            <span matSuffix style="margin-left: 5px;">BsS</span>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">                 
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Concepto" name="description" ngModel/>
+                        </mat-form-field>  
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field>
+                            <input matInput name="password" ngModel [type]="hidePass ? 'password' : 'text'" placeholder="Contraseña" required/>
+                            <mat-icon matSuffix>
+                                <span *ngIf="hidePass" (click)="hidePass=false">
+                                    <i class="far fa-eye"></i>
+                                </span>
+                                <span *ngIf="!hidePass" (click)="hidePass=true">
+                                    <i class="far fa-eye-slash"></i>
+                                </span>
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="margin-bottom: 4%; margin-top: 20px;">
+                    <button type="submit" mat-raised-button class="transferir theme-button"> Transferir </button>
+                    <button routerLink='/' mat-raised-button class="cancel theme-button"> Cancelar </button>        
+                </div>
+            </form>
+        </div> 
+    </div>
+</div>

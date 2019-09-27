@@ -1,65 +1,70 @@
-<h2>Facturas Vencidas </h2>
+<div class="container">
+    <h2>Facturas Vencidas</h2>
 
-<div class="row">
-    <div>
-        <label> Fecha desde: </label>
-        <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="mm/dd/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    </div>
-
-    <div>
-        <label> Fecha hasta: </label>
-        <mat-form-field>
-            <input matInput [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
-            <mat-datepicker #SecondPicker></mat-datepicker>
-        </mat-form-field>
+    <div class="row text-center" style="padding-bottom: 50px">
+        <div class="col-12">
+            <span style="margin-right: 20px">
+                <label style="margin-right: 5px"> Fecha desde: </label>
+                <mat-form-field>
+                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setStartDate($event)" [matDatepicker]="picker" placeholder="mm/dd/aaaa" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </span>
+            <span style="margin-right: 20px">
+                <label style="margin-right: 5px"> Fecha hasta: </label>
+                <mat-form-field>
+                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setEndDate($event)" [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #SecondPicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </span>
+            <button mat-raised-button class="theme-button" (click)="getExpBills()"> Buscar </button>
+        </div>
+        <div class="col-12 table-div text-left" style="padding: 0" *ngIf="table.data.length || table.loading">
+            <div *ngIf="table.loading" class="loading-shade">
+                <mat-spinner></mat-spinner>
+            </div>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nro. de Factura</th>
+                        <th>RIF Emisor</th>
+                        <th>RIF Receptor</th>
+                        <th>Estatus</th>
+                        <th>Monto</th>
+                        <th>Fecha de Pago</th>
+                        <th>Fecha de Vencimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let bill of table.data">
+                        <td>{{bill.bil_id}}</td>
+                        <td>{{bill.bil_emitter}}</td>
+                        <td>{{bill.bil_receiver}}</td>
+                        <td>
+                            <span *ngIf="bill.bil_status == 0">Sin pagar</span>
+                            <span *ngIf="bill.bil_status == 1" style="color: green">Pagada</span>
+                        </td>
+                        <td>{{bill.bil_amount}}</td>
+                        <td><span *ngIf="bill.bil_paydate">{{ bill.bil_paydate | date }}</span></td>
+                        <td>{{bill.bil_expdate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-pagination" style="padding: 10px 20px">
+                <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills()"><i class="fas fa-angle-double-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills(table.previous)"><i class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills(table.next)"><i class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+            </div>
+        </div>
+        <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">
+            No se han encontrado resultados
+        </div>
+        <div class="col-12">
+            <button mat-raised-button class="theme-button"> Exportar a PDF </button>
+        </div>
     </div>
 </div>
-
-<div>
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
-            
-            <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Nro. de Factura </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="f_emision">
-            <th mat-header-cell *matHeaderCellDef> Fecha de emisión </th>
-            <td mat-cell *matCellDef="let element"> {{element.f_emision}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="nombre_RS">
-            <th mat-header-cell *matHeaderCellDef> Nombre o razón social </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre_RS}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="f_vencimiento">
-            <th mat-header-cell *matHeaderCellDef> Fecha de vencimiento </th>
-            <td mat-cell *matCellDef="let element"> {{element.f_vencimiento}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="monto">
-            <th mat-header-cell *matHeaderCellDef> Monto </th>
-            <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
-            </ng-container>                        
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </div>
-</div>
-
-<div class="row_center">
-    <button mat-raised-button> Exportar a PDF </button>
-</div>
-    
-
-  

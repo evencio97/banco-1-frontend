@@ -1,48 +1,76 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { TransfersService } from '../services/transfers.service';
+import { CardsService } from '../services/cards.service';
+import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'Resumen',
-  templateUrl: './resumen.component.html',
-  styleUrls: ['./resumen.component.css']
+    selector: 'Resumen',
+    templateUrl: './resumen.component.html',
+    styleUrls: ['./resumen.component.css']
 })
 export class ResumenComponent implements OnInit {
 
-  displayedColumns: string[] = ['operacion', 'fecha', 'status', 'negocio', 'monto'];
-  dataSource = new MatTableDataSource<ultMov>(ELEMENT_DATA);  
+    accounts = [];
+    purchases = [];
+    tdcs = [];
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    constructor(
+        private _transfersService: TransfersService,
+        private _cardsService: CardsService
+    ) { }
 
-  constructor() { }
+    ngOnInit() {
+        Swal.fire({
+            showCancelButton: false,
+            showConfirmButton: false,
+            background: 'transparent',
+            html: '<div class="loading-sp"><div></div><div></div><div></div><div></div></div>',
+            allowOutsideClick: false
+        });
+        this.getLastPurchases(true);
+        this.getAccounts();
+        this.getTDCs();
+    }
 
-  ngOnInit() {  
-      this.dataSource.paginator = this.paginator;  
-  }
+    getLastPurchases(closeLoading = false) {
+        this._cardsService.getLastPurchases().subscribe(
+            response => {
+                if (closeLoading) Swal.close();
+                this.purchases = response.purchases;
+                // console.log({'purchases': this.purchases});
+            },
+            err => {
+                Swal.fire('Ups', err.error['message'], 'warning');
+                console.log(<any>err);
+            }
+        );
+    }
 
+    getAccounts(closeLoading = false) {
+        this._transfersService.getUserAccounts(null).subscribe(
+            response => {
+                if (closeLoading) Swal.close();
+                this.accounts = response.accounts ? response.accounts : [];
+                // console.log(this.accounts);
+            },
+            err => {
+                Swal.fire('Ups', err.error['message'], 'warning');
+                console.log(<any>err);
+            }
+        );
+    }
+
+    getTDCs(closeLoading = false) {
+        this._cardsService.getTDCs(0).subscribe(
+            response => {
+                if (closeLoading) Swal.close();
+                this.tdcs = response.tdcs;
+                // console.log({'accounts': this.accounts, 'tdcs': this.tdcs});
+            },
+            err => {
+                Swal.fire('Ups', err.error['message'], 'warning');
+                console.log(<any>err);
+            }
+        );
+    }
 }
-
-export interface ultMov {
-  operacion: string, 
-  fecha: string, 
-  status: string, 
-  negocio: string,
-  monto: string  
-}
-
-const ELEMENT_DATA: ultMov[] = [
-  {
-    operacion: 'compra por internet', 
-    fecha: '3/9/2019', 
-    status: 'Activo', 
-    negocio: 'Tienda 1',
-    monto: '12.000',    
-  },{
-    operacion: 'Transferencia con TDC', 
-    fecha: '28/11/2019', 
-    status: 'Bloqueado', 
-    negocio: 'Distribuidor 1',
-    monto: '9.000',    
-  }  
-];
-

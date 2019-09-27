@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Facturas Vigentes</h2>
+    <h2>Facturas</h2>
 
     <div class="row text-center" style="padding-bottom: 50px">
         <div class="col-12">
@@ -19,7 +19,7 @@
                     <mat-datepicker #SecondPicker disabled="false"></mat-datepicker>
                 </mat-form-field>
             </span>
-            <button mat-raised-button class="theme-button" (click)="getOpenBills()"> Buscar </button>
+            <button mat-raised-button class="theme-button" (click)="getBills()"> Buscar </button>
         </div>
         <div class="col-12 table-div text-left" style="padding: 0" *ngIf="table.data.length || table.loading">
             <div *ngIf="table.loading" class="loading-shade">
@@ -47,17 +47,19 @@
                             <span *ngIf="bill.bil_status == 1" style="color: green">Pagada</span>
                         </td>
                         <td>{{bill.bil_amount}}</td>
-                        <td><span *ngIf="bill.bil_paydate">{{ bill.bil_paydate | date }}</span></td>
-                        <td>{{bill.bil_expdate}}</td>
+                        <td>
+                            <span *ngIf="bill.bil_paydate">{{ bill.bil_paydate | date }}</span>
+                        </td>
+                        <td>{{bill.bil_expdate  | date}}</td>
                     </tr>
                 </tbody>
             </table>
             <div class="table-pagination" style="padding: 10px 20px">
                 <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills()"><i class="fas fa-angle-double-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills(table.previous)"><i class="fas fa-angle-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills(table.next)"><i class="fas fa-angle-right"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills()"><i class="fas fa-angle-double-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills(table.previous)"><i class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills(table.next)"><i class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
             </div>
         </div>
         <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">

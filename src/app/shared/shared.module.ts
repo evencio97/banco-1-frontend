@@ -15,8 +15,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material';
 
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, MatTooltipModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
@@ -45,7 +46,9 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     MatNativeDateModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   exports:[
     BrowserAnimationsModule,
@@ -67,7 +70,9 @@ import { ControlMessagesComponent } from './control-messages/control-messages.co
     ControlMessagesComponent,
     MatSlideToggleModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

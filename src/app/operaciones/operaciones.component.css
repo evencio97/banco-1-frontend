@@ -1,35 +1,15 @@
-.row div{
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-top: 15px; 
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+.mat-input-element:disabled{
+    color: #3f3f3f !important;
 }
 
-mat-radio-button{
-    padding-left: 25px;
+.m-right{
+    margin-right: 20px;
 }
 
-.row .fechasfiltro{
-    display: flex;
-    flex-direction: row;    
-    justify-content: space-between
+.filter-m-top{
+    margin-top: 20px;
 }
 
-button{    
-    background-color: #FFAB52;
-    color: white;
-    font-size: 14px;
-}
-
-table {
-    width: 100%;
-}    
-
-th{
-    background-color: black;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
+.filter-m-bottom{
+    margin-bottom: 20px;
 }

@@ -1,30 +1,12 @@
-.row{
-    margin-top: 5%
-}
-
-.row div{
-    margin-left: 20%;
-    margin-right: 20%;
-    padding-top: 15px; 
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
 mat-radio-button{
     padding-left: 25px;
 }
 
-.row .insideRow{
+.options{
     display: flex;
     flex-direction: row;    
-    justify-content: space-between
-}
-
-.row .buttons{
-    display: flex;
-    flex-direction: row;    
-    justify-content: center
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .nameBenef{
@@ -32,9 +14,14 @@ mat-radio-button{
     padding-right: 10px
 }
 
-.mat-button{
+.options-button{
     border-style: solid;
-    border-width:  0 0 4px 0 ;
+    border-width: 0 0 3px 0;
+    border-radius: 0px;
+    border-color: #3f3f3f;
+    color: #585858;
+    width: 130px;
+    transition-duration: 0.5s
 }
 
 .transferir{    
@@ -47,7 +34,7 @@ mat-radio-button{
     background-color:  #545454;
     color: white;
     font-size: 14px;
-    margin-left: 40px
+    margin-left: 20px
 
 }
 
@@ -62,6 +49,15 @@ th{
     font-size: 14px;
 }
 
-.tipoId{
+.id-type{
     width: 50px;
+    margin-right: 10px;
+}
+
+.right{
+    margin-right: 20px;
+}
+
+.full-width{
+    width: 500px;
 }

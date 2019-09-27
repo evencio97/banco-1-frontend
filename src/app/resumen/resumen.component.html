@@ -1,50 +1,93 @@
-<h2> Últimos movimientos </h2>
-
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
-    
-    <ng-container matColumnDef="operacion">
-      <th mat-header-cell *matHeaderCellDef> Operación </th>
-      <td mat-cell *matCellDef="let element"> {{element.operacion}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Estatus </th>
-      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="negocio">
-      <th mat-header-cell *matHeaderCellDef> Negocio </th>
-      <td mat-cell *matCellDef="let element"> {{element.negocio}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="monto">
-      <th mat-header-cell *matHeaderCellDef> Monto </th>
-      <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
-    </ng-container>    
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</div>
-
-<div>
-    <div class="row">
-        <div class= "row_1_col1">          
-            <h2> Cuenta de ahorro </h2>
-            <span>Saldo disponible : 0.00  <img src="../../assets/img/logo-petro.png" width="20px" height="auto"></span> <!--{{cuentaAhorro.saldo}}-->          
+<div class="container" style="padding: 50px 0">
+    <!-- Purchases Table -->
+    <div class="row text-center" style="padding-bottom: 50px" *ngIf="purchases.length">
+        <h2 style="text-align: left;width:100%; margin-bottom: 20px;"> Últimas compras </h2>
+        <div class="col-12 table-div text-left" style="padding: 0">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Operación</th>
+                        <th>Negocio</th>
+                        <th>Estatus</th>
+                        <th>Monto</th>
+                        <th>IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let purchase of purchases">
+                        <td>{{purchase.pur_created_at | date}}</td>
+                        <td>
+                            <span>Compra con TDC terminada en ******{{purchase.pur_creditcard.substr(-4)}}</span>
+                        </td>
+                        <td>
+                            {{purchase.jusr_company}}
+                        </td>
+                        <td>
+                            <span *ngIf="purchase.pur_status == 0">Pendiente</span>
+                            <span *ngIf="purchase.pur_status == 1" style="color: green">Procesada</span>
+                            <span *ngIf="purchase.pur_status == 2" style="color: red">Fallida</span>
+                        </td>
+                        <td>
+                            <span style="color: red">{{ purchase.pur_amount }}</span>
+                        </td>
+                        <td>{{ purchase.pur_client_ip }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-  
-        <div class= "row_1_col2">          
-            <h2> Cuenta de corriente </h2>
-            <span>Saldo disponible: 0.00  <img src="../../assets/img/logo-petro.png" width="20px" height="auto"> </span> <!--{{cuentaCorriente.saldo}}-->          
-        </div>    
-      </div>  
+    </div>
+    <!-- Accounts Balance -->
+    <div class="row text-left" *ngIf="accounts.length">
+        <div class="col-6" *ngFor="let account of accounts">
+            <h2 style="margin-bottom: 15px;"> {{account.aco_type==1? 'Cuenta de ahorro':'Cuenta Corriente'}} </h2>
+            <span style="margin-left: 30px;">
+                Saldo disponible:
+                <span style="margin-left: 20px;">
+                    {{account.aco_balance}} BsS
+                    <button mat-raised-button matTooltip="{{account.aco_balance*0.00000081}}" aria-label="Button that shows a red tooltip" style="padding:0;min-width:auto;box-shadow:none!important;outline:none!important;margin-left:10px;height:20px;">
+                        <img src="../../assets/img/logo-petro.png" style="margin-top: -4px" width="20px" height="auto">
+                    </button>
+                </span>
+            </span>          
+        </div>
+    </div>
+    <!-- TDC Table -->
+    <div class="row text-center" style="padding-top: 50px" *ngIf="tdcs.length">
+        <h2 style="text-align: left;width:100%; margin-bottom: 20px;"> Tarjetas de crédito </h2>
+        <div class="col-12 table-div text-left" style="padding: 0">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Numero</th>
+                        <th>Fecha de expiracion</th>
+                        <th>Estatus</th>
+                        <th>Límite</th>
+                        <th>Deuda</th>
+                        <th>Disponible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tdc of tdcs">
+                        <td>{{tdc.cc_number}}</td>
+                        <td>{{tdc.cc_exp_date | date}}</td>
+                        <td>
+                            <span *ngIf="tdc.cc_status == 0">Sin activar</span>
+                            <span *ngIf="tdc.cc_status == 1" style="color: green">Activa</span>
+                            <span *ngIf="tdc.cc_status == 2" style="color: red">Bloqueada</span>
+                        </td>
+                        <td>{{tdc.cc_limit}}</td>
+                        <td>
+                            <span *ngIf="tdc.cc_balance>0" style="color: red">{{tdc.cc_balance}}</span>
+                            <span *ngIf="tdc.cc_balance==0">{{tdc.cc_balance}}</span>
+                        </td>
+                        <td>
+                            <span *ngIf="tdc.cc_limit-tdc.cc_balance>0" style="color: green">{{tdc.cc_limit-tdc.cc_balance}}</span>
+                            <span *ngIf="tdc.cc_limit-tdc.cc_balance==0">-{{tdc.cc_limit-tdc.cc_balance}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
