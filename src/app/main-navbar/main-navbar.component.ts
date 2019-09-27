@@ -26,12 +26,12 @@ export class MainNavbarComponent {
   constructor(private breakpointObserver: BreakpointObserver, private _userService: UserService, private _auth:AuthService, private _router: Router,) { }
 
   ngOnInit() {
-    //this.token = this._userService.getToken();
+    this.token = this._userService.getToken();
   }
 
   ngDoCheck() {
     this.user = this._userService.getSession();
-    // this.token = this._userService.getToken();
+    this.token = this._userService.getToken();
   }
 
   logout() {
