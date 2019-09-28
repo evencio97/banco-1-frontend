@@ -14,6 +14,7 @@ export class ResumenComponent implements OnInit {
     accounts = [];
     purchases = [];
     tdcs = [];
+    public token;
 
     constructor(
         private _transfersService: TransfersService,
@@ -29,6 +30,10 @@ export class ResumenComponent implements OnInit {
             html: '<div class="loading-sp"><div></div><div></div><div></div><div></div></div>',
             allowOutsideClick: false
         });
+        this.token = new Promise((resolve, reject) => {
+            resolve(this._userService.getToken());
+        });
+        
         this.getLastPurchases(true);
         this.getAccounts();
         this.getTDCs();

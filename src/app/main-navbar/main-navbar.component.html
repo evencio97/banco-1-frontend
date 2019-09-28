@@ -3,10 +3,10 @@
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false">
         <mat-toolbar class="perfil">
-            <img src="../../assets/img/images.jpg" class="foto-perfil">
+            <img src="../../assets/img/user.png" class="foto-perfil">
 
             <div class="nameUser" *ngIf="editPerfil">
-                <span style="vertical-align: middle;color:#fff !important;font-weight: 600;font-size: 1.2em;">Orianna Capote</span>&nbsp;&nbsp;
+                <span style="vertical-align: middle;color:#fff !important;font-weight: 600;font-size: 1.2em;">{{user.first_name}} {{user.first_surname}}</span>&nbsp;&nbsp;
                 <img (click)="editPerfil = !editPerfil" style="cursor:pointer; vertical-align: middle"
                     src="../../assets/img/edit.svg" alt="triangle with all three sides equal" height="22px"
                     width="22px"/>
