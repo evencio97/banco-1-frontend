@@ -22,9 +22,9 @@ export class RecoveryPasswordComponent implements OnInit {
     this.form = this.formBuilder.group({
       token: [tokenValid, []],
       q_recovery: [
-        {value:q_recovery,disabled:true}
+        { value: q_recovery, disabled: true }
       ],
-      a_recovery:[
+      a_recovery: [
         '',
         [Validators.required, Validators.maxLength(100)]
       ],
@@ -53,7 +53,7 @@ export class RecoveryPasswordComponent implements OnInit {
       showCancelButton: false,
       showConfirmButton: false,
       background: 'transparent',
-      html: '<div class = "animated fadeIn fa-child-ss" style="color:#ffffff"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div>',
+      html: '<div class="loading-sp"><div></div><div></div><div></div><div></div></div>',
       allowOutsideClick: false
     });
     this._userService.findTokenReset(this.token).subscribe(

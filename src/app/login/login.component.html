@@ -6,10 +6,10 @@
                 <div class="col-12 text-center logo-padding">
                     <img src="../../assets/img/logo_v2_sf.png" height="125px">
                 </div>
-                <div class="col-6 text-center border-dark">
+                <div class="col-6 text-center border-dark" [ngClass]="{'border-primary':type == 1}">
                     <a class="opt" [ngClass]="{'active':type == 1}" (click)="changeLogin(1)">Cliente Natural</a>
                 </div>
-                <div class="col-6 text-center border-primary">
+                <div class="col-6 text-center border-dark" [ngClass]="{'border-primary':type == 2}">
                     <a class="opt" [ngClass]="{'active':type == 2}" (click)="changeLogin(2)">Cliente Jurídico</a>
                 </div>
                 <div class="col-12">

@@ -7,7 +7,7 @@ import { ValidationService } from '../services/validation.service';
 
 import Swal from 'sweetalert2';
 //import * as $ from 'jquery';
-declare var $ : any;
+declare var $: any;
 
 export interface OPTION {
   value: string;
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   public message: string;
   public hidePass;
   public form: FormGroup;
-  public type:number = 1;
+  public type: number = 1;
 
   constructor(
     private _route: ActivatedRoute,
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.hidePass = true;
     this.resetFormNatural();
   }
-  
+
   resetFormNatural() {
     this.form = this.formBuilder.group({
       opt_ci: [
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
       ]
     });
   }
-    
+
   showPass() {
     this.hidePass = !this.hidePass;
   }
@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
       showCancelButton: false,
       showConfirmButton: false,
       background: 'transparent',
-      html: '<div class = "animated fadeIn fa-child-ss" style="color:#ffffff"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div>',
+      html: '<div class="loading-sp"><div></div><div></div><div></div><div></div></div>',
       allowOutsideClick: false
     });
     if (form.valid) {
@@ -98,23 +98,20 @@ export class LoginComponent implements OnInit {
         this._userService.login(form.value, this.type).subscribe(
           response => {
             if (response['user'] && response['access_token']) {
-              this._userService.saveSession(response['access_token'],response['user'])
+              this._userService.saveSession(response['access_token'], response['user'])
               Swal.close();
               this._router.navigate(['/']);
             } else {
-              Swal.close();
               Swal.fire('Ups', response['message'], 'warning')
             }
           },
           err => {
-            Swal.close();
             Swal.fire('Ups', err.error['message'], 'warning');
             console.log(<any>err);
           }
         );
       } catch (e) {
         console.log(e);
-        Swal.close();
         Swal.fire('Ups', e.error['message'], 'warning');
       }
     } else {
@@ -122,9 +119,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  changeLogin(value){
-    value == 1 ? this.resetFormNatural(): this.resetFormJuridic();
-    this.type=value;
+  changeLogin(value) {
+    value == 1 ? this.resetFormNatural() : this.resetFormJuridic();
+    this.type = value;
   }
 
 }

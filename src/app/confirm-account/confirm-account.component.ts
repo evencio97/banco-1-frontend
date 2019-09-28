@@ -18,7 +18,7 @@ export class ConfirmAccountComponent implements OnInit {
       showCancelButton: false,
       showConfirmButton: false,
       background: 'transparent',
-      html: '<div class = "animated fadeIn fa-child-ss" style="color:#ffffff"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div>',
+      html: '<div class="loading-sp"><div></div><div></div><div></div><div></div></div>',
       allowOutsideClick: false
     });
     this._userService.confirmAccount(this.token).subscribe(
@@ -29,13 +29,13 @@ export class ConfirmAccountComponent implements OnInit {
           this._router.navigate(['/']);
         }
       }, err => {
-          Swal.close();
-          Swal.fire('Ups', err.error['message'], 'warning').then(() => {
-            this._router.navigate(['/login']);
-          });
-          console.log(<any>err);
-        }
-      );
+        Swal.close();
+        Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+          this._router.navigate(['/login']);
+        });
+        console.log(<any>err);
+      }
+    );
   }
 
 }

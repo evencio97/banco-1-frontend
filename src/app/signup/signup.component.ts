@@ -58,7 +58,7 @@ export class SignupComponent implements OnInit {
     value == 0 ? this.hidePass = !this.hidePass : this.hidePassValidate = !this.hidePassValidate;
   }
 
-  showPassJusr(value){
+  showPassJusr(value) {
     value == 0 ? this.hidePassJusr = !this.hidePassJusr : this.hidePassJusrValidate = !this.hidePassJusrValidate;
   }
 
@@ -67,7 +67,7 @@ export class SignupComponent implements OnInit {
       showCancelButton: false,
       showConfirmButton: false,
       background: 'transparent',
-      html: '<div class = "animated fadeIn fa-child-ss" style="color:#ffffff"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div>',
+      html: '<div class="loading-sp"><div></div><div></div><div></div><div></div></div>',
       allowOutsideClick: false
     });
     // console.log(form.value);
@@ -102,7 +102,7 @@ export class SignupComponent implements OnInit {
     this.type = value;
   }
 
-  onChange(){
+  onChange() {
     this.check.value ? this.resetFormJuridicCheck() : this.resetFormJuridic();
   }
 
@@ -162,7 +162,7 @@ export class SignupComponent implements OnInit {
       ]
     });
   }
-  
+
   resetFormJuridic() {
     this.form = this.formBuilder.group({
       opt_ci: [
