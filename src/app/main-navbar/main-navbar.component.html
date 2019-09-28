@@ -28,13 +28,9 @@
         <mat-nav-list>
             <a mat-list-item routerLink="/resumen" routerLinkActive="active"><img src="../../assets/img/dashboard.svg"
                     alt="triangle with all three sides equal" height="30px" width="30px" />&nbsp;&nbsp;Resumen</a>
-            <a mat-list-item (click)="transfer = !transfer"> <img src="../../assets/img/send.svg"
+            <a mat-list-item routerLink="/transferir"> <img src="../../assets/img/send.svg"
                     alt="triangle with all three sides equal" height="30px" width="30px" />&nbsp;&nbsp;Transferencias
             </a>
-            <a class="sublist" *ngIf="transfer" mat-list-item routerLink="/transferencias/registrada"
-                routerLinkActive="active"> Cuentas registradas </a>
-            <a class="sublist" *ngIf="transfer" mat-list-item routerLink="/transferencias/noRegistrada"
-                routerLinkActive="active"> Cuentas no registradas</a>
             <a mat-list-item routerLink="/tarjetaCredito" routerLinkActive="active"> <img
                     src="../../assets/img/credit-cards-payment.svg" alt="triangle with all three sides equal"
                     height="30px" width="30px" />&nbsp;&nbsp;Tarjetas de crédito</a>

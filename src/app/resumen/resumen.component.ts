@@ -1,5 +1,6 @@
 import { TransfersService } from '../services/transfers.service';
 import { CardsService } from '../services/cards.service';
+import { UserService } from '../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
@@ -16,7 +17,8 @@ export class ResumenComponent implements OnInit {
 
     constructor(
         private _transfersService: TransfersService,
-        private _cardsService: CardsService
+        private _cardsService: CardsService,
+        private _userService: UserService
     ) { }
 
     ngOnInit() {
@@ -40,6 +42,8 @@ export class ResumenComponent implements OnInit {
                 // console.log({'purchases': this.purchases});
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
+
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }
@@ -54,6 +58,8 @@ export class ResumenComponent implements OnInit {
                 // console.log(this.accounts);
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
+
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }
@@ -68,6 +74,8 @@ export class ResumenComponent implements OnInit {
                 // console.log({'accounts': this.accounts, 'tdcs': this.tdcs});
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
+
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }

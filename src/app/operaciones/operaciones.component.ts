@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker/typings/datepicker-input';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'Operaciones',
@@ -31,7 +32,7 @@ export class OperacionesComponent implements OnInit {
 
     constructor(
         private _transfersService: TransfersService,
-        private _router: Router
+        private _userService: UserService
     ) { }
 
     ngOnInit() {
@@ -54,6 +55,7 @@ export class OperacionesComponent implements OnInit {
                 // console.log(this.accounts);
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }
@@ -86,6 +88,7 @@ export class OperacionesComponent implements OnInit {
             },
             err => {
                 this.table.loading = false;
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }

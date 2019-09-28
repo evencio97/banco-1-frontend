@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { UserService } from './user.service';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' })
+    headers: null
 };
 
 @Injectable({
@@ -13,9 +14,15 @@ export class BillsService {
 
     public apiUrl;
     constructor(
-        private _http: HttpClient
+        private _http: HttpClient,
+        private _userService: UserService
     ) {
         this.apiUrl = environment.apiUrl;
+        httpOptions.headers = new HttpHeaders({ 
+            'Content-Type': 'application/json', 
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization': _userService.getToken() 
+        });
     }
 
     getBills(params) {

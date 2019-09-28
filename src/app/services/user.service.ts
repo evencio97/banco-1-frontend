@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' })
@@ -13,6 +14,7 @@ export class UserService {
 
 	public apiUrl;
 	constructor(
+		private _router: Router,
 		private _http: HttpClient
 	) {
 		this.apiUrl = environment.apiUrl;
@@ -24,6 +26,10 @@ export class UserService {
 	saveSession(token, user){
 		localStorage.setItem('token', JSON.stringify(token));
 		localStorage.setItem('session', JSON.stringify(user));
+	}
+	tokenFailsOrExp(){
+		this.removeSession();
+		this._router.navigate(['/login']);
 	}
 	login(user, type) {
 		let params = JSON.stringify(user);
@@ -56,7 +62,7 @@ export class UserService {
 	editProfile(user, token) {
 		let params = JSON.stringify(user);
 		return this._http.put(this.apiUrl + '/user/edit', params, {
-			headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'Authorization': 'Bearer ' + token })
+			headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'Authorization': token })
 		})
 	}
 }

@@ -40,7 +40,9 @@
     <!-- Accounts Balance -->
     <div class="row text-left" *ngIf="accounts?.length">
         <div class="col-6" *ngFor="let account of accounts">
-            <h2 style="margin-bottom: 15px;"> {{account.aco_type==1? 'Cuenta de ahorro':'Cuenta Corriente'}} </h2>
+            <h2 style="margin-bottom: 15px;" *ngIf="account.aco_type==1"> Cuenta de ahorro </h2>
+            <h2 style="margin-bottom: 15px;" *ngIf="account.aco_type==2"> Cuenta Corriente </h2>
+            <h2 style="margin-bottom: 15px;" *ngIf="account.aco_type==3"> Cuenta Juridica </h2>
             <span style="margin-left: 30px;">
                 Saldo disponible:
                 <span style="margin-left: 20px;">

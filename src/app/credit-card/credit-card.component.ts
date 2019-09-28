@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { CardsService } from '../services/cards.service';
 import { MatTableDataSource } from '@angular/material';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'CreditCard',
@@ -26,7 +27,9 @@ export class CreditCardComponent implements OnInit {
     };
 
     constructor(
-        private _cardsService: CardsService) { }
+        private _cardsService: CardsService,
+        private _userService: UserService
+    ) { }
 
     ngOnInit() {
         this.getTDCsAndAccounts();
@@ -54,6 +57,7 @@ export class CreditCardComponent implements OnInit {
                 // console.log({'accounts': this.accounts, 'tdcs': this.tdcs});
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }
@@ -119,6 +123,7 @@ export class CreditCardComponent implements OnInit {
                 this.getTDCsAndAccounts(false);
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }

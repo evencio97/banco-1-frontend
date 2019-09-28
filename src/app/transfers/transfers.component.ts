@@ -4,6 +4,7 @@ import { TransfersService } from '../services/transfers.service';
 import { MatTableDataSource } from '@angular/material';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 declare var jQuery: any;
 
@@ -20,7 +21,8 @@ export class TransfersComponent implements OnInit {
 
     constructor(
         private _transfersService: TransfersService,
-        private _router: Router
+        private _router: Router,
+        private _userService: UserService
     ) { }
 
     ngOnInit() {
@@ -48,6 +50,7 @@ export class TransfersComponent implements OnInit {
                 // console.log({'accounts': this.accounts});
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }
@@ -90,6 +93,7 @@ export class TransfersComponent implements OnInit {
                 this.getUserAccounts(false);
             },
             err => {
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }

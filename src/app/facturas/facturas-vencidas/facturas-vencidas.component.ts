@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker/typings/datepicker-input';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-facturas-vencidas',
@@ -27,7 +28,7 @@ export class FacturasVencidasComponent implements OnInit {
 
     constructor(
         private _billsService: BillsService,
-        private _router: Router
+        private _userService: UserService
     ) { }
 
     ngOnInit() {
@@ -55,6 +56,7 @@ export class FacturasVencidasComponent implements OnInit {
             },
             err => {
                 this.table.loading = false;
+                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
                 Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
             }
