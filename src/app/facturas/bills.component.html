@@ -1,34 +1,40 @@
 <div class="container">
     <h2>Facturas</h2>
 
-    <div class="row text-center" style="padding-bottom: 50px">
+    <div class="row text-center" style="padding-bottom: 30px">
         <div class="col-12">
             <span style="margin-right: 20px">
                 <label style="margin-right: 5px"> Fecha desde: </label>
                 <mat-form-field>
-                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setStartDate($event)" [matDatepicker]="picker" placeholder="mm/dd/aaaa" disabled>
+                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setStartDate($event)"
+                        [matDatepicker]="picker" placeholder="mm/dd/aaaa" disabled>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker disabled="false"></mat-datepicker>
                 </mat-form-field>
             </span>
+        </div>
+        <div class="col-12">
             <span style="margin-right: 20px">
                 <label style="margin-right: 5px"> Fecha hasta: </label>
                 <mat-form-field>
-                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setEndDate($event)" [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa" disabled>
+                    <input matInput [min]="minDate" [max]="maxDate" (dateChange)="setEndDate($event)"
+                        [matDatepicker]="SecondPicker" placeholder="mm/dd/aaaa" disabled>
                     <mat-datepicker-toggle matSuffix [for]="SecondPicker"></mat-datepicker-toggle>
                     <mat-datepicker #SecondPicker disabled="false"></mat-datepicker>
                 </mat-form-field>
             </span>
+        </div>
+        <div class="col-12" style="margin-bottom:30px;">
             <button mat-raised-button class="theme-button" (click)="getBills()"> Buscar </button>
         </div>
         <div class="col-12 table-div text-left" style="padding: 0" *ngIf="table.data.length || table.loading">
             <div *ngIf="table.loading" class="loading-shade">
                 <mat-spinner></mat-spinner>
             </div>
-            <table class="table table-hover">
+            <table id = "content-pdf" class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Nro. de Factura</th>
+                        <th>#REF</th>
                         <th>RIF Emisor</th>
                         <th>RIF Receptor</th>
                         <th>Estatus</th>
@@ -39,7 +45,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let bill of table.data">
-                        <td>{{bill.bil_id}}</td>
+                        <td>{{bill.bil_ref_code}}</td>
                         <td>{{bill.bil_emitter}}</td>
                         <td>{{bill.bil_receiver}}</td>
                         <td>
@@ -56,17 +62,163 @@
             </table>
             <div class="table-pagination" style="padding: 10px 20px">
                 <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
-                <span class="table-icon table-icon-mr" (click)="getBills()"><i class="fas fa-angle-double-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getBills(table.previous)"><i class="fas fa-angle-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getBills(table.next)"><i class="fas fa-angle-right"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getBills(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills()"><i
+                        class="fas fa-angle-double-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills(table.previous)"><i
+                        class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills(table.next)"><i
+                        class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getBills(table.finalPage)"><i
+                        class="fas fa-angle-double-right"></i></span>
             </div>
         </div>
         <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">
             No se han encontrado resultados
         </div>
         <div class="col-12">
-            <button mat-raised-button class="theme-button"> Exportar a PDF </button>
+            <button mat-raised-button class="theme-button" (click)="exportPdf()"> Exportar a PDF </button>
         </div>
+        <div class="col-12">
+            <hr>
+        </div>
+
+    </div>
+    <div class="row text-right">
+        <div class="col-12">
+            <mat-radio-group [(ngModel)]="aux">
+                <mat-radio-button style="padding-right:15px;" class="example-margin" [value]=0 (click)="changeForm(0)">
+                    Emitir factura
+                </mat-radio-button>
+                <mat-radio-button class="example-margin" [value]=1 (click)="changeForm(1)">Pagar factura
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div [className]="option == 0 ? 'animated fadeInLeft':'animated fadeInRight'" class="row"
+        style="padding-bottom: 50px">
+        <div class="col-12 text-center">
+            <h2 *ngIf="option == 0" style="margin: 0 0 40px 0"> Emitir factura </h2>
+            <h2 *ngIf="option == 1" style="margin: 0 0 40px 0"> Pagar factura </h2>
+        </div>
+        <form [formGroup]="form" (submit)="onSubmit(form)">
+            <div *ngIf="option == 0" class="col-12 col-md-6 offset-md-3">
+                <!-- <mat-form-field class="full-width input-padding">
+                            <mat-label>Número de cuenta que emite la factura</mat-label>
+                            <mat-select name="emitter" formControlName="emitter">
+                                <mat-option *ngFor="let aco of accounts" [value]="aco.aco_number">
+                                    {{aco.aco_number}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+                <mat-form-field class="full-width input-padding">
+                    <input matInput maxlength="10" type="text" placeholder="Rif del usuario juridico emisor"
+                        name="emitter" formControlName="emitter"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                    <mat-error *ngIf="form.controls.emitter.invalid">
+                        <app-control-messages [control]="form.controls.emitter">
+                        </app-control-messages>
+                    </mat-error>
+                    <mat-hint align="end">{{form.controls.emitter.value?.length || 0}}/10</mat-hint>
+                </mat-form-field>
+            </div>
+            <div *ngIf="option == 0" class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <input matInput maxlength="10" type="text" placeholder="Rif del usuario juridico receptor"
+                        name="receiver" formControlName="receiver">
+                    <mat-error *ngIf="form.controls.receiver.invalid">
+                        <app-control-messages [control]="form.controls.receiver">
+                        </app-control-messages>
+                    </mat-error>
+                    <mat-hint align="end">{{form.controls.receiver.value?.length || 0}}/10</mat-hint>
+                </mat-form-field>
+            </div>
+            <div *ngIf="option == 0" class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <mat-label>Fecha de expiración</mat-label>
+                    <input matInput name="expdate" formControlName="expdate" [min]="minDateExp" [max]="maxDateExp"
+                        [matDatepicker]="pickerexpdate" placeholder="mm/dd/aaaa" (dateChange)="setDateFormat($event)">
+                    <mat-datepicker-toggle matSuffix [for]="pickerexpdate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerexpdate disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="form.controls.expdate.invalid">
+                        <app-control-messages [control]="form.controls.expdate">
+                        </app-control-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="option == 0" class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <input matInput type="number" placeholder="Monto a pagar" name="amount" formControlName="amount"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                    <span matSuffix style="margin-left: 5px;">BsS</span>
+                    <mat-error *ngIf="form.controls.amount.invalid">
+                        <app-control-messages [control]="form.controls.amount">
+                        </app-control-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="option == 1" class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <mat-label>Cuenta a debitar</mat-label>
+                    <mat-select name="accunt_emitter" formControlName="account_emitter">
+                        <mat-option *ngFor="let aco of accounts" [value]="aco.aco_number">
+                            {{aco.aco_number}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="option == 1" class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <input matInput maxlength="10" type="text" placeholder="#Ref"
+                        name="bill_ref_cod" formControlName="bill_ref_cod" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                    <mat-error *ngIf="form.controls.bill_ref_cod.invalid">
+                        <app-control-messages [control]="form.controls.bill_ref_cod">
+                        </app-control-messages>
+                    </mat-error>
+                    <mat-hint align="end">{{form.controls.bill_ref_cod.value?.length || 0}}/8</mat-hint>
+                </mat-form-field>
+            </div>
+            <div *ngIf="option == 1" class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <input matInput maxlength="20" type="text" placeholder="Cuenta a pagar" name="account_receiver"
+                        formControlName="account_receiver">
+                    <mat-error *ngIf="form.controls.account_receiver.invalid">
+                        <app-control-messages [control]="form.controls.account_receiver" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                        </app-control-messages>
+                    </mat-error>
+                    <mat-hint align="end">{{form.controls.account_receiver.value?.length || 0}}/20</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6 offset-md-3">
+                <mat-form-field class="full-width input-padding">
+                    <input matInput name="password" type="password" placeholder="Contraseña" formControlName="password"
+                        [type]="hidePass ? 'password' : 'text'">
+                    <mat-icon matSuffix>
+                        <span *ngIf="hidePass" (click)="showPass()">
+                            <i class="far fa-eye"></i>
+                        </span>
+                        <span *ngIf="!hidePass" (click)="showPass()">
+                            <i class="far fa-eye-slash"></i>
+                        </span>
+                    </mat-icon>
+                    <mat-error *ngIf="form.controls.password.invalid">
+                        <app-control-messages [control]="form.controls.password"></app-control-messages>
+                    </mat-error>
+                    <mat-hint>La contraseña debe tener mínimo 8 caracteres al menos 1 alfabeto en
+                        mayúsculas, 1 alfabeto en minúsculas, 1 número y 1 carácter especial (#$%&)
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="option == 0" class="row">
+                <button type="submit" mat-raised-button class="theme-button" style="margin-top: 10px"> Emitir
+                    factura
+                </button>
+            </div>
+            <div *ngIf="option == 1" class="row">
+                <button type="submit" mat-raised-button class="theme-button" style="margin-top: 10px"> Pagar
+                    factura
+                </button>
+            </div>
+        </form>
     </div>
 </div>

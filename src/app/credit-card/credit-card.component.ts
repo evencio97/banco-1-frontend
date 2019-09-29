@@ -51,15 +51,17 @@ export class CreditCardComponent implements OnInit {
                 this.data = new MatTableDataSource(response['tdcs']);
                 this.tdcs = response['tdcs'];
                 this.form.number = this.tdcs.length ? this.tdcs[0] : null;
-                this.form.amount = this.form.number ? this.form.number.cc_minimum_payment : null;
+                this.form.amount = this.form.number ? (this.form.number.cc_balance * (this.form.number.cc_minimum_payment / 100)) + (this.form.number.cc_balance * (this.form.number.cc_interests / 100)) : null;
                 this.accounts = response['accounts'];
                 this.form.account = this.accounts.length ? this.accounts[0] : null;
                 // console.log({'accounts': this.accounts, 'tdcs': this.tdcs});
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-                Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }
@@ -80,6 +82,7 @@ export class CreditCardComponent implements OnInit {
     }
 
     toggleMinimum() {
+        this.form.amount = this.form.number ? (this.form.number.cc_balance * (this.form.number.cc_minimum_payment / 100)) + (this.form.number.cc_balance * (this.form.number.cc_interests / 100)) : null;
         this.form.minimum = !this.form.minimum;
     }
 
@@ -123,9 +126,11 @@ export class CreditCardComponent implements OnInit {
                 this.getTDCsAndAccounts(false);
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-                Swal.fire('Ups', err.error['message'], 'warning');
                 console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }

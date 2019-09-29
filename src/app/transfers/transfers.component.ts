@@ -30,7 +30,7 @@ export class TransfersComponent implements OnInit {
     }
 
     getUserAccounts(showLoading = true) {
-        if (showLoading){
+        if (showLoading) {
             Swal.fire({
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -50,9 +50,10 @@ export class TransfersComponent implements OnInit {
                 // console.log({'accounts': this.accounts});
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-                Swal.fire('Ups', err.error['message'], 'warning');
-                console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }
@@ -71,7 +72,7 @@ export class TransfersComponent implements OnInit {
         }
         let data = f.value;
         data.sameBank = this.sameBank;
-        let account = this.accounts.find(function(element) {
+        let account = this.accounts.find(function (element) {
             return element.aco_number == data.emitter;
         });
         // console.log({data: data, account: account});
@@ -93,9 +94,10 @@ export class TransfersComponent implements OnInit {
                 this.getUserAccounts(false);
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-                Swal.fire('Ups', err.error['message'], 'warning');
-                console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }
@@ -103,21 +105,21 @@ export class TransfersComponent implements OnInit {
     onlyNumericInput(e) {
         //188
         if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
-              // Allow: Ctrl/cmd+A
-          (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-          // Allow: Ctrl/cmd+C
-          (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-          // Allow: Ctrl/cmd+X
-          (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-          // Allow: home, end, left, right
-          (e.keyCode >= 35 && e.keyCode <= 39)) {
-          // let it happen, don't do anything
-          return;
+            // Allow: Ctrl/cmd+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
         }
         // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105) && e.keyCode != 188 ) {
-          //console.log(e);
-          e.preventDefault();
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105) && e.keyCode != 188) {
+            //console.log(e);
+            e.preventDefault();
         }
-      }
+    }
 }

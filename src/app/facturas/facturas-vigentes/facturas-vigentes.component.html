@@ -25,10 +25,10 @@
             <div *ngIf="table.loading" class="loading-shade">
                 <mat-spinner></mat-spinner>
             </div>
-            <table class="table table-hover">
+            <table id="content-pdf" class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Nro. de Factura</th>
+                        <th>#REF</th>
                         <th>RIF Emisor</th>
                         <th>RIF Receptor</th>
                         <th>Estatus</th>
@@ -39,7 +39,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let bill of table.data">
-                        <td>{{bill.bil_id}}</td>
+                        <td>{{bill.bil_ref_code}}</td>
                         <td>{{bill.bil_emitter}}</td>
                         <td>{{bill.bil_receiver}}</td>
                         <td>
@@ -64,7 +64,7 @@
             No se han encontrado resultados
         </div>
         <div class="col-12">
-            <button mat-raised-button class="theme-button"> Exportar a PDF </button>
+            <button mat-raised-button class="theme-button" (click)="exportPdf()"> Exportar a PDF </button>
         </div>
     </div>
 </div>

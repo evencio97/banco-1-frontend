@@ -46,11 +46,14 @@ export class MainNavbarComponent {
             response => {
                 Swal.close();
                 this._userService.removeSession();
-                Swal.fire('Hasta luego!', response['message'], 'success');
-                this._router.navigate(['/login']);
+                Swal.fire('Hasta luego!', response['message'], 'success').then(() => {
+                    window.location.reload();
+                });
             }, err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-                Swal.fire('Ups', err, 'warning');
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             });
     }
 

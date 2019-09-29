@@ -33,7 +33,7 @@ export class ResumenComponent implements OnInit {
         this.token = new Promise((resolve, reject) => {
             resolve(this._userService.getToken());
         });
-        
+
         this.getLastPurchases(true);
         this.getAccounts();
         this.getTDCs();
@@ -47,10 +47,10 @@ export class ResumenComponent implements OnInit {
                 // console.log({'purchases': this.purchases});
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-
-                Swal.fire('Ups', err.error['message'], 'warning');
-                console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }
@@ -63,10 +63,10 @@ export class ResumenComponent implements OnInit {
                 // console.log(this.accounts);
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-
-                Swal.fire('Ups', err.error['message'], 'warning');
-                console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }
@@ -79,10 +79,10 @@ export class ResumenComponent implements OnInit {
                 // console.log({'accounts': this.accounts, 'tdcs': this.tdcs});
             },
             err => {
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-
-                Swal.fire('Ups', err.error['message'], 'warning');
-                console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
     }

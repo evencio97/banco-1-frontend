@@ -6,10 +6,11 @@
             <img src="../../assets/img/user.png" class="foto-perfil">
 
             <div class="nameUser" *ngIf="editPerfil">
-                <span style="vertical-align: middle;color:#fff !important;font-weight: 600;font-size: 1.2em;">{{user.first_name}} {{user.first_surname}}</span>&nbsp;&nbsp;
-                <img (click)="editPerfil = !editPerfil" style="cursor:pointer; vertical-align: middle"
+                <span *ngIf="user.hasOwnProperty('user_ci')" style="vertical-align: middle;color:#fff !important;font-weight: 600;font-size: 1.2em;">{{user.first_name}}{{user.first_surname}} <br> {{user.user_ci}}</span>
+                <span *ngIf="user.hasOwnProperty('jusr_rif')" style="vertical-align: middle;color:#fff !important;font-weight: 600;font-size: 1.2em;">{{user.jusr_company}}<br>{{user.jusr_rif}}</span>
+                <!-- <img (click)="editPerfil = !editPerfil" style="cursor:pointer; vertical-align: middle"
                     src="../../assets/img/edit.svg" alt="triangle with all three sides equal" height="22px"
-                    width="22px"/>
+                    width="22px"/> -->
             </div>
 
             <div class="nameUser" *ngIf="!editPerfil">
@@ -37,8 +38,8 @@
             <a mat-list-item routerLink="/operaciones" routerLinkActive="active"><img
                     src="../../assets/img/facturas.svg" alt="triangle with all three sides equal" height="30px"
                     width="30px" />&nbsp;&nbsp;Historico de Operaciones</a>
-            <a mat-list-item routerLinkActive="active">
-                <a routerLink="/facturas">
+            <a *ngIf="user.hasOwnProperty('jusr_rif')" routerLink="/facturas" mat-list-item routerLinkActive="active">
+                <a>
                     <img src="../../assets/img/bill.svg" alt="triangle with all three sides equal" height="30px" width="30px" />
                     &nbsp;&nbsp;Facturas 
                 </a>

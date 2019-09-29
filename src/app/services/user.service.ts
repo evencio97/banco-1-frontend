@@ -29,7 +29,8 @@ export class UserService {
 	}
 	tokenFailsOrExp(){
 		this.removeSession();
-		this._router.navigate(['/login']);
+		window.location.reload();
+		// this._router.navigate(['/login']);
 	}
 	login(user, type) {
 		let params = JSON.stringify(user);

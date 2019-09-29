@@ -5,6 +5,8 @@ import { formatDate } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker/typings/datepicker-input';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
+import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-facturas-vencidas',
@@ -56,11 +58,29 @@ export class FacturasVencidasComponent implements OnInit {
             },
             err => {
                 this.table.loading = false;
-                if (err.error['token_fail'] || err.error['token_exp']) this._userService.tokenFailsOrExp();
-                Swal.fire('Ups', err.error['message'], 'warning');
-                console.log(<any>err);
+                if (err.error['token_fail'] || err.error['token_exp'])
+                    Swal.fire('Ups', err.error['message'], 'warning').then(() => {
+                        this._userService.tokenFailsOrExp();
+                    });
             }
         );
+    }
+
+    exportPdf() {
+        var data = document.getElementById('content-pdf');  
+        html2canvas(data).then(canvas => {  
+          // Few necessary setting options  
+          var imgWidth = 208;   
+          var pageHeight = 295;    
+          var imgHeight = canvas.height * imgWidth / canvas.width;  
+          var heightLeft = imgHeight;  
+      
+          const contentDataURL = canvas.toDataURL('image/png')  
+          let pdf = new jsPDF(); // A4 size page of PDF  
+          var position = 0;  
+          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+          pdf.save('bills_exp.pdf'); // Generated PDF   
+        });
     }
 
     initTable() {

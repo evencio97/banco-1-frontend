@@ -44,4 +44,14 @@ export class BillsService {
         const requestUrl = `${this.apiUrl}/bill/expired${params}`;
         return <any> this._http.get(requestUrl, httpOptions);
     }
+
+    emitBill(bill){
+        let params = JSON.stringify(bill);
+		return this._http.post(this.apiUrl + '/bill', params, httpOptions);
+    }
+
+    payBill(bill){
+        let params = JSON.stringify(bill);
+		return this._http.post(this.apiUrl + '/bill/pay', params, httpOptions);
+    }
 }
