@@ -94,11 +94,11 @@ export class TransfersComponent implements OnInit {
                 this.getUserAccounts(false);
             },
             err => {
-                Swal.fire('Ups', err.error['message'], 'warning');
                 if (err.error['token_fail'] || err.error['token_exp'])
                     Swal.fire('Ups', err.error['message'], 'warning').then(() => {
                         this._userService.tokenFailsOrExp();
                     });
+                Swal.fire('Ups', err.error['message'], 'warning');
             }
         );
     }
