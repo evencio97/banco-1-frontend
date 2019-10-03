@@ -55,15 +55,15 @@
             <div class="table-pagination" style="padding: 10px 20px">
                 <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
                 <span class="table-icon table-icon-mr" (click)="getOpenBills()"><i class="fas fa-angle-double-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills(table.previous)"><i class="fas fa-angle-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills(table.next)"><i class="fas fa-angle-right"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getOpenBills(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getOpenBills(true, table.previous)"><i class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getOpenBills(true, table.next)"><i class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getOpenBills(true, table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
             </div>
         </div>
         <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">
             No se han encontrado resultados
         </div>
-        <div class="col-12">
+        <div *ngIf="table.data.length || table.loading" class="col-12">
             <button mat-raised-button class="theme-button" (click)="exportPdf()"> Exportar a PDF </button>
         </div>
     </div>

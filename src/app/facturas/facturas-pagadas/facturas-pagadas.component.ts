@@ -6,7 +6,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker/typings/da
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 @Component({
     selector: 'app-facturas-pagadas',
@@ -51,7 +51,7 @@ export class FacturasPagadasComponent implements OnInit {
           const contentDataURL = canvas.toDataURL('image/png')  
           let pdf = new jsPDF(); // A4 size page of PDF  
           var position = 0;  
-          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);  
           pdf.save('bills_pay.pdf'); // Generated PDF   
         });
     }

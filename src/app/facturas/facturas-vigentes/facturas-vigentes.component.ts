@@ -6,7 +6,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker/typings/da
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-facturas-vigentes',

@@ -64,18 +64,18 @@
                 <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
                 <span class="table-icon table-icon-mr" (click)="getBills()"><i
                         class="fas fa-angle-double-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getBills(table.previous)"><i
+                <span class="table-icon table-icon-mr" (click)="getBills(true, table.previous)"><i
                         class="fas fa-angle-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getBills(table.next)"><i
+                <span class="table-icon table-icon-mr" (click)="getBills(true, table.next)"><i
                         class="fas fa-angle-right"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getBills(table.finalPage)"><i
+                <span class="table-icon table-icon-mr" (click)="getBills(true, table.finalPage)"><i
                         class="fas fa-angle-double-right"></i></span>
             </div>
         </div>
         <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">
             No se han encontrado resultados
         </div>
-        <div class="col-12">
+        <div *ngIf="table.data.length || table.loading" class="col-12">
             <button mat-raised-button class="theme-button" (click)="exportPdf()"> Exportar a PDF </button>
         </div>
         <div class="col-12">

@@ -15,8 +15,8 @@ declare var $: any;
 })
 export class RequestPasswordComponent implements OnInit {
 
-  private form: FormGroup;
-  private type: number = 1;
+  public form: FormGroup;
+  public type: number = 1;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,

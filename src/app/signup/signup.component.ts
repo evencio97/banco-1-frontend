@@ -20,18 +20,18 @@ export interface OPTION {
 })
 export class SignupComponent implements OnInit {
 
-  private ci_op: OPTION[] = [
+  public ci_op: OPTION[] = [
     { value: 'V', viewValue: 'V' },
     { value: 'E', viewValue: 'E' }
   ];
 
-  private rif_op: OPTION[] = [
+  public rif_op: OPTION[] = [
     { value: 'J', viewValue: 'J' },
     { value: 'G', viewValue: 'G' },
     { value: 'C', viewValue: 'C' }
   ]
 
-  private type_account: OPTION[] = [
+  public type_account: OPTION[] = [
     { value: '1', viewValue: 'Ahorro' },
     { value: '2', viewValue: 'Corriente' }
   ]
@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
   public hidePassValidate = true;
   public hidePassJusr = true;
   public hidePassJusrValidate = true;
-  private type: number = 1;
+  public type: number = 1;
   public form: FormGroup;
   constructor(
     private _route: ActivatedRoute,

@@ -48,7 +48,7 @@
             <div *ngIf="table.loading" class="loading-shade">
                 <mat-spinner></mat-spinner>
             </div>
-            <table class="table table-hover">
+            <table id="content-pdf" class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th>Fecha</th>
@@ -90,16 +90,16 @@
             <div class="table-pagination" style="padding: 10px 20px">
                 <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
                 <span class="table-icon table-icon-mr" (click)="getAccountMoves()"><i class="fas fa-angle-double-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getAccountMoves(table.previous)"><i class="fas fa-angle-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getAccountMoves(table.next)"><i class="fas fa-angle-right"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getAccountMoves(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves(true, table.previous)"><i class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves(true, table.next)"><i class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getAccountMoves(true, table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
             </div>
         </div>
         <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">
             No se han encontrado resultados
         </div>
-        <div class="col-12">
-            <button mat-raised-button class="theme-button"> Exportar a PDF </button>
+        <div *ngIf="table.data.length || table.loading" class="col-12">
+            <button mat-raised-button class="theme-button" (click)="exportPdf()"> Exportar a PDF </button>
         </div>
     </div>
 </div>

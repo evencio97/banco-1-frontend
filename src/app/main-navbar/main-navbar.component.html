@@ -1,8 +1,8 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav *ngIf="token" #drawer class="sidenav" fixedInViewport
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === false">
-        <mat-toolbar class="perfil">
+        [opened]="token ? true:false">
+        <mat-toolbar *ngIf="token" class="perfil">
             <img src="../../assets/img/user.png" class="foto-perfil">
 
             <div class="nameUser" *ngIf="editPerfil">
@@ -26,7 +26,7 @@
             </div>
 
         </mat-toolbar>
-        <mat-nav-list>
+        <mat-nav-list *ngIf="token">
             <a mat-list-item routerLink="/resumen" routerLinkActive="active"><img src="../../assets/img/dashboard.svg"
                     alt="triangle with all three sides equal" height="30px" width="30px" />&nbsp;&nbsp;Resumen</a>
             <a mat-list-item routerLink="/transferir"> <img src="../../assets/img/send.svg"

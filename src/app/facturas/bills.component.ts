@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 import { AccountService } from '../services/account.service';
 import { ValidationService } from '../services/validation.service';
 import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';  
 
 @Component({
     selector: 'app-bills',

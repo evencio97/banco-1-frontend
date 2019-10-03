@@ -55,9 +55,9 @@
             <div class="table-pagination" style="padding: 10px 20px">
                 <span class="table-index">{{table.page}} de {{table.finalPage}}</span>
                 <span class="table-icon table-icon-mr" (click)="getExpBills()"><i class="fas fa-angle-double-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getExpBills(table.previous)"><i class="fas fa-angle-left"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getExpBills(table.next)"><i class="fas fa-angle-right"></i></span>
-                <span class="table-icon table-icon-mr" (click)="getExpBills(table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills(true, table.previous)"><i class="fas fa-angle-left"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills(true, table.next)"><i class="fas fa-angle-right"></i></span>
+                <span class="table-icon table-icon-mr" (click)="getExpBills(true, table.finalPage)"><i class="fas fa-angle-double-right"></i></span>
             </div>
         </div>
         <div class="col-12 table-error" *ngIf="!table.data.length && !table.loading">

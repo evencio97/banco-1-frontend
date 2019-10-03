@@ -22,12 +22,12 @@ export interface OPTION {
 })
 export class LoginComponent implements OnInit {
 
-  private ci_op: OPTION[] = [
+  public ci_op: OPTION[] = [
     { value: 'V', viewValue: 'V' },
     { value: 'E', viewValue: 'E' }
   ];
 
-  private rif_op: OPTION[] = [
+  public rif_op: OPTION[] = [
     { value: 'J', viewValue: 'J' },
     { value: 'G', viewValue: 'G' },
     { value: 'C', viewValue: 'C' }

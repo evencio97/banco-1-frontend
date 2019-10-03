@@ -15,8 +15,8 @@ import Swal from 'sweetalert2';
 })
 export class MainNavbarComponent {
 
-    private token = true;
-    private user;
+    public token = true;
+    public user;
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
         .pipe(
             map(result => result.matches),
@@ -45,10 +45,9 @@ export class MainNavbarComponent {
         this._auth.logout(this.token).subscribe(
             response => {
                 Swal.close();
-                this._userService.removeSession();
-                Swal.fire('Hasta luego!', response['message'], 'success').then(() => {
-                    window.location.reload();
-                });
+                // Swal.fire('Hasta luego!', response['message'], 'success').then(() => {
+                    this._userService.tokenFailsOrExp();
+                // }    
             }, err => {
                 if (err.error['token_fail'] || err.error['token_exp'])
                     Swal.fire('Ups', err.error['message'], 'warning').then(() => {
